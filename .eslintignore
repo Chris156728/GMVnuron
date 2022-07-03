@@ -9,6 +9,8 @@
 /coverage
 /src/components/Login.jsx
 /src/pages/index.jsx
+/src/layouts/header/header-01/index.jsx
+
 # next.js
 /.next
 /out/
