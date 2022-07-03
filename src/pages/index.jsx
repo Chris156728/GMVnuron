@@ -31,7 +31,8 @@ const Home = () => {
                 <ExploreProductArea
                     data={{
                         ...content["explore-product-section"],
-                        products: productData
+                        products: productData,
+                        placeBid: true,
                     }}
                 />
                 <ServiceArea data={content["service-section"]} />
