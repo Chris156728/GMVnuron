@@ -42,7 +42,9 @@
         "remark": "^14.0.2",
         "remark-html": "^15.0.1",
         "sal.js": "^0.8.5",
-        "sass": "^1.45.0"
+        "sass": "^1.45.0",
+        "sharp": "^0.30.7",
+        "web3": "^1.5.3"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",

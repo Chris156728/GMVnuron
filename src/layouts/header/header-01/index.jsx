@@ -6,20 +6,22 @@ import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
 import SearchForm from "@components/search-form/layout-01";
 import FlyoutSearchForm from "@components/search-form/layout-02";
-import UserDropdown from "@components/user-dropdown";
+//import UserDropdown from "@components/user-dropdown";
 import ColorSwitcher from "@components/color-switcher";
+import Login from "@components/Login";
 import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
-import Button from "@ui/button";
+//import Button from "@ui/button";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 import headerData from "../../../data/general/header-01.json";
 import menuData from "../../../data/general/menu-01.json";
 
-const Header = ({ className }) => {
+const Header = (props) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const { authenticate, isAuthenticated } = useMoralis();
+    //const { authenticate, isAuthenticated } = useMoralis();
+    console.log(props.url);
 
     return (
         <>
@@ -27,7 +29,7 @@ const Header = ({ className }) => {
                 className={clsx(
                     "rn-header haeder-default black-logo-version header--fixed header--sticky",
                     sticky && "sticky",
-                    className
+                    //className
                 )}
             >
                 <div className="container">
@@ -59,25 +61,16 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            {!isAuthenticated && (
+                            
                                 <div className="setting-option header-btn">
                                     <div className="icon-box">
-                                        <Button
-                                            color="primary-alta"
-                                            className="connectBtn"
-                                            size="small"
-                                            onClick={() => authenticate()}
-                                        >
-                                            Wallet connect
-                                        </Button>
+                                    <Login callback={props.callback} contractaddr={props.contractaddr} url={props.url}
+                                     connected={props.connected} address={props.address}></Login>
+                                        
                                     </div>
                                 </div>
-                            )}
-                            {isAuthenticated && (
-                                <div className="setting-option rn-icon-list user-account">
-                                    <UserDropdown />
-                                </div>
-                            )}
+                            
+                           
                             <div className="setting-option rn-icon-list notification-badge">
                                 <div className="icon-box">
                                     <Anchor path={headerData.activity_link}>

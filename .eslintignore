@@ -7,7 +7,8 @@
 
 # testing
 /coverage
-
+/src/components/Login.jsx
+/src/pages/index.jsx
 # next.js
 /.next
 /out/

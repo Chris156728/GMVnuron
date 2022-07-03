@@ -1,0 +1,9 @@
+{
+  "contractaddr": "0x4787B7152706852be054992FDB1d27a009eE66CB",
+  "tokenaddr": [
+				"0xE7d541c18D6aDb863F4C570065c57b75a53a64d3",
+				"0xD92E713d051C37EbB2561803a3b5FBAbc4962431"
+			   ],
+  "tokenprice":[1000000,2000000] 
+  
+}
