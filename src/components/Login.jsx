@@ -55,6 +55,7 @@ export default function Login(props) {
 	}
 	else {
 		return <button color="primary-alta"
+		className="connectBtn"
 		size="small">Connect Wallet</button>; 
 	}
 }
