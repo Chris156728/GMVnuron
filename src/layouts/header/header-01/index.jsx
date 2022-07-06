@@ -6,7 +6,7 @@ import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
 import SearchForm from "@components/search-form/layout-01";
 import FlyoutSearchForm from "@components/search-form/layout-02";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 //import UserDropdown from "@components/user-dropdown";
 import ColorSwitcher from "@components/color-switcher";
 import Login from "@components/Login";
@@ -18,7 +18,9 @@ import headerData from "../../../data/general/header-01.json";
 import menuData from "../../../data/general/menu-01.json";
 import conf from "../../../configABI/config.json";
 
-const Header = (props) => {
+
+
+const Header = (param) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
@@ -27,13 +29,42 @@ const Header = (props) => {
     let nowurl = null;
     let contractAvailable = false;
     let walletAddress = null;
+    
     const [web3props, setWeb3Props] = useState({ web3: null, accounts: null, contract: null });
+    useEffect(() => {
+        // When title or name changed will render
+        console.log('headerrender');
+        let rurl = window.location.origin + "/";
+        const curr=new URL(window.location.href);
+        nowurl=curr.href;
+	    const refaddr=curr.searchParams.get('ref');
+        if(!isMobileDevice()){
+            // If the wallet is connected, all three values will be set. Use to display the main nav below.
+             contractAvailable = !(!web3props.web3 && !web3props.accounts && !web3props.contract);
+            // Grab the connected wallet address, if available, to pass into the Login component
+             walletAddress = web3props.accounts ? web3props.accounts[0] : "";
+        } 
+        if(isMobileDevice() && window.ethereum){
+            contractAvailable = !(!web3props.web3 && !web3props.accounts && !web3props.contract);
+            // Grab the connected wallet address, if available, to pass into the Login component
+             walletAddress = web3props.accounts ? web3props.accounts[0] : "";
+        }
+        let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokenprice, contractaddr:conf.contractaddr, url:nowurl, 
+            refaddr:refaddr, contract:web3props.contract, address:walletAddress};
+            
+        if(rurl === window.location.href && contractAvailable)
+            if(param!==null){
+            param.callb(props);
+            }
+          }, [web3props])
+
     const OnLogin = function(param){
 		let { web3, accounts, contract } = param;
 		if(web3 && accounts && accounts.length && contract){
 			setWeb3Props({ web3, accounts, contract });
 		}
 	}
+
 if (typeof window !== "undefined") {  
     const curr=new URL(window.location.href);
     nowurl=curr.href;
@@ -105,7 +136,16 @@ if(isMobileDevice() && window.ethereum){
 	// Grab the connected wallet address, if available, to pass into the Login component
      walletAddress = web3props.accounts ? web3props.accounts[0] : "";
 }
+//let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokenprice, contractaddr:conf.contractaddr, url:nowurl, 
+//refadd:refaddr, contract:web3props.contract, address:walletAddress};
+
+/*let rurl = window.location.origin + "/";
+if(rurl === window.location.href && contractAvailable)
+    if(param!==null){
+    param.callb(props);
+    }*/
 }
+
 
 
     return (

@@ -9,7 +9,7 @@ import { flatDeep } from "@utils/methods";
 import { SectionTitleType, ProductType } from "@utils/types";
 
 const ExploreProductArea = ({ className, space, data }) => {
-    console.log(data.url);
+    //console.log(data.url);
     const filters = [
         ...new Set(
             flatDeep(data?.products.map((item) => item.categories) || [])
@@ -92,7 +92,7 @@ ExploreProductArea.propTypes = {
         section_title: SectionTitleType,
         products: PropTypes.arrayOf(ProductType),
         placeBid: PropTypes.bool,
-        url: PropTypes.string
+        
     }),
 };
 
