@@ -30,7 +30,7 @@ const PlaceBidModal = ({ show, handleModal, tkuri, pid, gomint, price }) => (
                     
                     <div className="bid-content-mid">
                         <div className="bid-content-left">
-                            <span>This NFT Price : {price.amount} USDT</span>
+                            <span>This NFT Price : {price?.amount} USDT</span>
                             
                         </div>
                         
