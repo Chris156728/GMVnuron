@@ -5,7 +5,7 @@ import Footer from "@layout/footer/footer-01";
 import Breadcrumb from "@components/breadcrumb";
 import ExploreProductArea from "@containers/explore-product/layout-08";
 import Web3 from "web3";
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js'
 // Demo data
 import productData from "../data/products.json";
