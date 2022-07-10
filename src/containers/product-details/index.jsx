@@ -12,7 +12,7 @@ import { ImageType } from "@utils/types";
 
 // Demo Image
 
-const ProductDetailsArea = ({ space, className, product }) => (
+const ProductDetailsArea = ({ space, className, product, domint }) => (
     <div
         className={clsx(
             "product-details-area",
@@ -61,6 +61,8 @@ const ProductDetailsArea = ({ space, className, product }) => (
                             <PlaceBet
                                 highest_bid={product.highest_bid}
                                 auction_date={product?.auction_date}
+                                product={product}
+                                domint={domint}
                             />
                         </div>
                     </div>
@@ -89,7 +91,10 @@ ProductDetailsArea.propTypes = {
         highest_bid: PropTypes.shape({}),
         auction_date: PropTypes.string,
         images: PropTypes.arrayOf(ImageType),
+        pid:PropTypes.number.isRequired,
+        tkuri:PropTypes.string.isRequired,
     }),
+    domint: PropTypes.func,
 };
 
 ProductDetailsArea.defaultProps = {

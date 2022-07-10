@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import SectionTitle from "@components/section-title/layout-02";
-import Product from "@components/product/layout-01";
+import Product from "@components/product/layout-01/index-mynft";
 import Button from "@ui/button";
 import { SectionTitleType, ProductType } from "@utils/types";
-
-const ExploreProductArea = ({ className, space, data }) => {
+import { motion } from "framer-motion";
+const ExploreProductArea = ({ className, space, data, getgp }) => {
     const [products, setProducts] = useState([]);
     const [hasMore, setHasMore] = useState(false);
 
@@ -44,8 +44,8 @@ const ExploreProductArea = ({ className, space, data }) => {
 
                 {products.length > 0 && (
                     <div className="row g-5">
-                        {products.map((prod) => (
-                            <div className="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                        {products.map((prod,idx) => (
+                            <div key={prod.id} className="col-5 col-lg-4 col-md-6 col-sm-6 col-12">                      
                                 <Product
                                     overlay
                                     placeBid={!!data.placeBid}
@@ -58,9 +58,11 @@ const ExploreProductArea = ({ className, space, data }) => {
                                     image={prod.images?.[0]}
                                     authors={prod.authors}
                                     bitCount={prod.bitCount}
-                                />
+                                    id={idx}
+                                    getgp={getgp}
+                                />                         
                             </div>
-                        ))}
+                        ))}                       
                     </div>
                 )}
                 <div className="row">

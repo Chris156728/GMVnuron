@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "axios": "^0.26.0",
+        "bignumber.js": "^9.0.2",
         "bootstrap": "5.1.3",
         "clsx": "^1.1.1",
         "framer-motion": "^6.2.6",

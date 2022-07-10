@@ -15,7 +15,7 @@ import homepageData from "../data/homepages/home-06.json";
 import productData0 from "../data/products-org.json";
 import productData from "../data/products.json";
 //import productData1 from "../data/products-02.json";
-
+import conf from "../configABI/config.json";
 
 
 const minABI = [
@@ -103,13 +103,13 @@ const Home = () => {
 		let uris = [];
     
 		// For this demo there are only 4 assets, named sequentially. 
-		for(let idx = 1; idx <= 10; idx++ ){
+		for(let idx = 1; idx <= 11; idx++ ){
       
 			let base ="/images/portfolio/lg/";// 'ipfs://QmU8V6P1kcwPrCvdVbkDpEvgn4uxUMWRwU3Tz3cGmvsNN3/';
       let base0 = "";
 			let ext = idx+".json";//'/token_data/exobit_'+idx+'.json';
 			let uri= base0+ext;
-			let pid = 0;//props.tokenprice[1];
+			let pid = idx%4;//props.tokenprice[1];
       let ptmp = null;
 			// Call the contract and get the id of the uri. If the uri doesn't belong to a token, it will return 0.
 			//console.log("idx",idx);
@@ -117,13 +117,19 @@ const Home = () => {
       //console.log("idx",idx);
 			// The token ID comes in as a string. "0" means that uri is not associated with a token.
 		  if(tokenId === "0") {
-        ptmp = JSON.parse(JSON.stringify(productData0));//Object.assign({}, productData0);
+        ptmp = JSON.parse(JSON.stringify(productData[idx]));//Object.assign({}, productData0);
         ptmp.id = idx;
         ptmp.images[0].src=base+idx+".jpg";
-        ptmp.price.amount=1000;
+        ptmp.price.amount=conf.tokentype[pid].price;
         ptmp.price.currency="USDT";
         ptmp.pid =pid;
-        ptmp.tkid = 1;
+        ptmp.tkid = 0;
+        ptmp.bitCount=conf.tokentype[pid].gp;
+        ptmp.latestBid=conf.tokentype[pid].lckprd+" Days";
+        ptmp.tkuri = uri;
+        ptmp.categories[0]=conf.tokentype[pid].price+" USDT";
+        ptmp.categories[1]=conf.tokentype[pid].lckprd+" Days";
+        ptmp.categories[2]=conf.tokentype[pid].gp+" GPower";
         console.log("pro0",ptmp);
         
         uris.push(ptmp);
@@ -139,6 +145,74 @@ const Home = () => {
 
 
 	}
+let tkid =0;
+
+  const DoMint = async (tokenURI,pid) => {
+    if(web3props!==null){
+		const contractAddress = web3props.contractaddr;//"0x7a7b4757543987dD07936D473Ead236ebcdc4999";
+		const nAddress = "0x0000000000000000000000000000000000000000";
+		const web3 = new Web3(window.web3.currentProvider);
+    const tokenAddress = web3props.tokenaddr[tkid];
+		const usdc = new web3.eth.Contract(minABI, tokenAddress);
+		console.log(contractAddress);
+		console.log('minting: ', tokenURI);
+		gomint:try{
+			// Estimate the gas required for the transaction
+			//console.log('caddress', contractAddress, 'waddress', props.address);
+			let refaddr = web3props.refaddr;
+			//var valid = WAValidator.validate(props.ref, 'ETH');
+			let valid = Web3.utils.isAddress(refaddr)
+			if(refaddr!=null){
+				
+				if(!valid) {
+					alert("referral address format not valid")
+					window.location.assign(web3props.url);
+					break gomint;
+				}	
+				if(refaddr==web3props.address){
+					alert("Can not refer yourself");
+					window.location.assign("/");
+					break gomint;
+				}
+			}
+			else {
+				refaddr = nAddress;
+			}
+			
+			
+			let uresult = await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
+			//console.log('uresult', uresult);
+				
+			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
+				{ 
+					from: web3props.address, 
+					value: 10000000000000000
+				}
+			);
+			// Call the mint function.
+			
+			let result = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
+				.send({ 
+					from: web3props.address, 
+					value: 10000000000000000,
+					// Setting the gasLimit with the estimate accuired above helps ensure accurate estimates in the wallet transaction.
+					gasLimit: gasLimit
+				});
+
+			// Output the result for the console during development. This will help with debugging transaction errors.
+			console.log('result', result);
+
+			// Refresh the gallery
+			CheckAssetURIs();
+
+		}catch(e){
+			console.error('There was a problem while minting', e);
+			alert(e.message);
+		}
+  } else {
+    alert("Please connect your wallet");
+  }
+	};
 
  
     return (
@@ -151,8 +225,10 @@ const Home = () => {
                     data={{
                         ...content["explore-product-section"],
                         products: assetURIs,
-                        placeBid: true,
+                        placeBid: true
                     }}
+                    domint={DoMint}
+                    
                 />
                 <ServiceArea data={content["service-section"]} />
             </main>

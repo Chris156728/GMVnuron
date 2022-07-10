@@ -11,7 +11,7 @@ import { shuffleArray } from "@utils/methods";
 // demo data
 import productData from "../../data/products.json";
 
-const ProductDetails = ({ product, recentViewProducts, relatedProducts }) => (
+const ProductDetails = ({ product, recentViewProducts, relatedProducts, domint }) => (
     <Wrapper>
         <SEO pageTitle="Product Details" />
         <Header />
@@ -20,7 +20,7 @@ const ProductDetails = ({ product, recentViewProducts, relatedProducts }) => (
                 pageTitle="Product Details"
                 currentPage="Product Details"
             />
-            <ProductDetailsArea product={product} />
+            <ProductDetailsArea product={product} domint={domint} />
             <ProductArea
                 data={{
                     section_title: { title: "Recent View" },
@@ -62,6 +62,7 @@ export async function getStaticProps({ params }) {
             product,
             recentViewProducts,
             relatedProducts,
+            //domint,
         }, // will be passed to the page component as props
     };
 }
@@ -70,6 +71,7 @@ ProductDetails.propTypes = {
     product: PropTypes.shape({}),
     recentViewProducts: PropTypes.arrayOf(PropTypes.shape({})),
     relatedProducts: PropTypes.arrayOf(PropTypes.shape({})),
+    domint: PropTypes.func,
 };
 
 export default ProductDetails;

@@ -1,9 +1,32 @@
 {
-  "contractaddr": "0x4787B7152706852be054992FDB1d27a009eE66CB",
+  "contractaddr": "0x4081b9058FEb11B17ec03F395ce4754ca9fB2abB",
   "tokenaddr": [
 				"0xE7d541c18D6aDb863F4C570065c57b75a53a64d3",
 				"0xD92E713d051C37EbB2561803a3b5FBAbc4962431"
 			   ],
-  "tokenprice":[1000000,2000000] 
+  "tokentype":[
+          {
+            "price":1,
+            "lckprd":360,
+            "gp":500
+          },
+          {
+            "price":2,
+            "lckprd":360,
+            "gp":500
+          },
+          {
+            "price":3,
+            "lckprd":360,
+            "gp":500
+          },
+          {
+            "price":4,
+            "lckprd":360,
+            "gp":500
+          }
+  ]
+  
+
   
 }

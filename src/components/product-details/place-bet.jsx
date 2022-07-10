@@ -8,7 +8,7 @@ import PlaceBidModal from "@components/modals/placebid-modal";
 import Countdown from "@ui/countdown/layout-02";
 import { ImageType } from "@utils/types";
 
-const PlaceBet = ({ highest_bid, auction_date, btnColor, className }) => {
+const PlaceBet = ({ highest_bid, auction_date, btnColor, className, product, domint }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
@@ -66,7 +66,7 @@ const PlaceBet = ({ highest_bid, auction_date, btnColor, className }) => {
                     Place a Bid
                 </Button>
             </div>
-            <PlaceBidModal show={showBidModal} handleModal={handleBidModal} />
+            <PlaceBidModal show={showBidModal} handleModal={handleBidModal} product={product} domint={domint}/>
         </>
     );
 };
@@ -83,6 +83,26 @@ PlaceBet.propTypes = {
     auction_date: PropTypes.string,
     btnColor: PropTypes.string,
     className: PropTypes.string,
+    product: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        likeCount: PropTypes.number,
+        price: PropTypes.shape({
+            amount: PropTypes.number.isRequired,
+            currency: PropTypes.string.isRequired,
+        }).isRequired,
+        owner: PropTypes.shape({}),
+        collection: PropTypes.shape({}),
+        bids: PropTypes.arrayOf(PropTypes.shape({})),
+        properties: PropTypes.arrayOf(PropTypes.shape({})),
+        tags: PropTypes.arrayOf(PropTypes.shape({})),
+        history: PropTypes.arrayOf(PropTypes.shape({})),
+        highest_bid: PropTypes.shape({}),
+        auction_date: PropTypes.string,
+        images: PropTypes.arrayOf(ImageType),
+        pid:PropTypes.number.isRequired,
+        tkuri:PropTypes.string.isRequired,
+    }),
+    domint: PropTypes.func,
 };
 
 export default PlaceBet;

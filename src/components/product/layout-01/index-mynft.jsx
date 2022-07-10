@@ -9,7 +9,7 @@ import ShareDropdown from "@components/share-dropdown";
 import ProductBid from "@components/product-bid";
 import Button from "@ui/button";
 import { ImageType } from "@utils/types";
-import PlaceBidModal from "@components/modals/placebid-modal";
+import PlaceBidModal from "@components/modals/placebid-modal/index-mynft";
 
 const Product = ({
     overlay,
@@ -24,9 +24,8 @@ const Product = ({
     authors,
     placeBid,
     disableShareDropdown,
-    tkuri,
-    pid,
-    domint
+    id,
+    getgp
 }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
@@ -34,8 +33,8 @@ const Product = ({
         setShowBidModal((prev) => !prev);
         
     };
-    const gomint = () => {
-        domint(tkuri,pid);
+    const gogp = () => {
+        getgp(id);
         setShowBidModal((prev) => !prev);
         
     };
@@ -92,7 +91,7 @@ const Product = ({
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal}
-                tkrui={tkuri} pid={pid} gomint={gomint}
+                 getgp={gogp}
              />
         </>
     );

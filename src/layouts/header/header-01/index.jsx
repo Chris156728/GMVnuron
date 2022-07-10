@@ -35,6 +35,7 @@ const Header = (param) => {
         // When title or name changed will render
         console.log('headerrender');
         let rurl = window.location.origin + "/";
+        let gpurl = window.location.origin + "/explore-04";
         const curr=new URL(window.location.href);
         nowurl=curr.href;
 	    const refaddr=curr.searchParams.get('ref');
@@ -49,10 +50,10 @@ const Header = (param) => {
             // Grab the connected wallet address, if available, to pass into the Login component
              walletAddress = web3props.accounts ? web3props.accounts[0] : "";
         }
-        let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokenprice, contractaddr:conf.contractaddr, url:nowurl, 
+        let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokentype, contractaddr:conf.contractaddr, url:nowurl, 
             refaddr:refaddr, contract:web3props.contract, address:walletAddress};
             
-        if(rurl === window.location.href && contractAvailable)
+        if((rurl === window.location.href || gpurl === window.location.href)&& contractAvailable)
             if(param!==null){
             param.callb(props);
             }

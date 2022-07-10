@@ -22,6 +22,7 @@ const LiveExploreArea = ({ data, className, space, gap }) => (
             )}
             {data?.products && (
                 <div className={clsx("row", gap && `g-${gap}`)}>
+                   
                     {data.products.map((prod) => (
                         <div
                             key={prod.id}
@@ -45,6 +46,7 @@ const LiveExploreArea = ({ data, className, space, gap }) => (
                             />
                         </div>
                     ))}
+                    
                 </div>
             )}
         </div>

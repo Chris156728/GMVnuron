@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
 
-const PlaceBidModal = ({ show, handleModal, tkuri, pid, gomint }) => (
+const PlaceBidModal = ({ show, handleModal, getgp }) => (
     <Modal
         className="rn-popup-modal placebid-modal-wrapper"
         show={show}
@@ -50,7 +50,7 @@ const PlaceBidModal = ({ show, handleModal, tkuri, pid, gomint }) => (
                 <div className="bit-continue-button">
                     
                     <Button size="medium" fullwidth
-                        onClick={gomint}
+                        onClick={getgp}
                     >
                         Place a bid
                     </Button>
@@ -71,7 +71,7 @@ const PlaceBidModal = ({ show, handleModal, tkuri, pid, gomint }) => (
 PlaceBidModal.propTypes = {
     show: PropTypes.bool.isRequired,
     handleModal: PropTypes.func.isRequired,
-    gomint: PropTypes.func.isRequired,
+    getgp: PropTypes.func.isRequired,
     
 };
 export default PlaceBidModal;
