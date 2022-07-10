@@ -75,12 +75,13 @@ const Product = ({
                                 image={client.image}
                             />
                         ))}
-                        <Anchor
+                        <a onClick={handleBidModal}
                             className="more-author-text"
-                            path={`/product/${slug}`}
+                            
                         >
-                            {bitCount} GameFi Power.
-                        </Anchor>
+
+                            {bitCount} GameFi Points
+                        </a>
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
@@ -91,7 +92,7 @@ const Product = ({
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal}
-                 getgp={gogp}
+                 getgp={gogp} gp={bitCount}
              />
         </>
     );

@@ -67,7 +67,7 @@ const Home02 = () => {
                 let date = new Date(nftinfo[0]*1e3);
                 let dtmp=date.toLocaleDateString();
                 ptmp.auction_date=dtmp;//.replace("/","-");
-                ptmp.bitCount=nftinfo[1];
+                ptmp.bitCount=nftinfo[1]*nftinfo[5]/10000;
                 ptmp.price.amount=nftinfo[5];
                 ptmp.latestBid=nftinfo[6]+" Days";
                 ptmp.price.currency="USDT";

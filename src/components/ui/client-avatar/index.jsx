@@ -4,7 +4,7 @@ import Anchor from "@ui/anchor";
 import { ImageType } from "@utils/types";
 
 const ClientAvatar = ({ slug, name, image }) => (
-    <Anchor path={slug} className="avatar" data-tooltip={name}>
+    <a className="avatar" data-tooltip={name}>
         {image?.src && (
             <Image
                 src={image.src}
@@ -14,7 +14,7 @@ const ClientAvatar = ({ slug, name, image }) => (
                 height={image?.height || 30}
             />
         )}
-    </Anchor>
+    </a>
 );
 
 ClientAvatar.propTypes = {

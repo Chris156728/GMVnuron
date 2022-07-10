@@ -62,7 +62,7 @@ const Product = ({
                     {auction_date && <CountdownTimer date={auction_date} />}
                     {placeBid && (
                         <Button onClick={handleBidModal} size="small">
-                            Place Bid
+                            Mint NFT
                         </Button>
                     )}
                 </div>
@@ -76,12 +76,12 @@ const Product = ({
                                 image={client.image}
                             />
                         ))}
-                        <Anchor
+                        <a onClick={handleBidModal}
                             className="more-author-text"
-                            path={`/product/${slug}`}
+                            
                         >
                             {bitCount} GameFi Power.
-                        </Anchor>
+                        </a>
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
@@ -92,7 +92,7 @@ const Product = ({
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal}
-                tkrui={tkuri} pid={pid} gomint={gomint}
+                tkrui={tkuri} pid={pid} gomint={gomint} price={price}
              />
         </>
     );
