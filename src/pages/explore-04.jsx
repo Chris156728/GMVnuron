@@ -69,6 +69,8 @@ const Home02 = () => {
 				let imguri = uripfx + metaData.image.substring(7);
                 ptmp = JSON.parse(JSON.stringify(productData[id]));
                 ptmp.id = id;
+                //ptmp.title = "id:"+id+"-"+metaData.name;
+                ptmp.title = metaData.name;
                 ptmp.images[0].src=imguri;
                 
                 let date = new Date(nftinfo[0]*1e3);
@@ -141,7 +143,7 @@ return (
         <SEO pageTitle="Explore Simple" />
         <Header callb={gow3props} />
         <main id="main-content">
-            <Breadcrumb pageTitle="Explore Simple" currentPage="Simple" />
+            <Breadcrumb pageTitle="Your Collected NFT" currentPage="Simple" />
             {bckd && <>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

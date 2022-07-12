@@ -25,6 +25,7 @@ const Product = ({
     placeBid,
     disableShareDropdown,
     id,
+    tkid,
     getgp
 }) => {
     const [showBidModal, setShowBidModal] = useState(false);
@@ -86,7 +87,10 @@ const Product = ({
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
                 <a onClick={handleBidModal}>
-                    <span className="product-name">{title}</span>
+                    <span className="product-name">Token ID:{tkid}</span>
+                </a>
+                <a onClick={handleBidModal}>
+                    <span className="latest-bid">{title}<br/></span>
                 </a>
                 <span className="latest-bid">Staking Period {latestBid}</span>
                 <ProductBid price={price} likeCount={likeCount} />

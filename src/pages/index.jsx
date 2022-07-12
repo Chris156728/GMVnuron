@@ -132,6 +132,7 @@ const Home = () => {
         
         ptmp = JSON.parse(JSON.stringify(productData[it]));//Object.assign({}, productData0);
         ptmp.id = idx;
+        ptmp.title = "GameVerse #"+idx;
         ptmp.images[0].src=base+idx+".jpg";
         ptmp.price.amount=conf.tokentype[pid].price;
         ptmp.price.currency="USDT";

@@ -59,6 +59,7 @@ const ExploreProductArea = ({ className, space, data, getgp }) => {
                                     authors={prod.authors}
                                     bitCount={prod.bitCount}
                                     id={idx}
+                                    tkid={prod.id}
                                     getgp={getgp}
                                 />                         
                             </div>

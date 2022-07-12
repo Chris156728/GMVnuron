@@ -57,7 +57,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     //uint256 private botcnt = 0;
     
     //uint256 private tstmp;
-    string private baseURI = "ipfs://QmU8V6P1kcwPrCvdVbkDpEvgn4uxUMWRwU3Tz3cGmvsNN3/";
+    string private baseURI = "ipfs://QmUwuFDFQHPPbT2Tcc5peVauSiyCABz7nom2QwyGJyzfG9/";
     string rewarduri = "0.json";
     //string public notRevealedUri;
     //string public baseExtension = ".json";
@@ -131,7 +131,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     /*function sellback(uint256 index, uint256 ttime) public payable {
         
     }*/
-    function gptransfer(uint256 index, uint256 tkid, uint256 ttime) public payable {
+    function gptransfer(uint256 index, uint256 tkid) public payable {
         require(
             devfee <= msg.value,
             "Not enough ether sent"
@@ -145,7 +145,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
             require(msg.sender == _NFT[nftid].lckaddr, "Required address mismatch");
             //prmt=1;
         }
-        uint256 ctime=ttime;//block.timestamp;//change bcak on line
+        uint256 ctime=block.timestamp;// ttime change bcak on line
          //_lastdate[nftid]=ctime;
          //uint256 nftid =  tokenOfOwnerByIndex(uadd,i);
             uint256 initdate = _initdate[nftid];//retrive(nftid,0);
@@ -167,14 +167,14 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         //_lastdate[nftid]=ctime;
     }
    
-    function getNFTinfo(uint256 nftid,address uadd, uint256 ttime) external view returns (uint256[] memory nftinfo){
+    function getNFTinfo(uint256 nftid,address uadd) external view returns (uint256[] memory nftinfo){
         //address uadd = msg.sender;
         uint256 rCount = 7;
         uint256[] memory result = new uint256[](rCount);
         require(totalSupply() > 0, "No token minted yet");
         require(uadd == ownerOf(nftid), "you are NOT the owner of this token");
         
-        uint256 ctime=ttime;//block.timestamp;
+        uint256 ctime=block.timestamp;//ttime
          uint256 initdate = _initdate[nftid];//retrive(nftid,0);
             uint256 lastdate = _lastdate[nftid];//retrive(nftid,1);
             uint256 lasttoinit = (lastdate - initdate)/(30*24*3600);
@@ -219,8 +219,8 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         tkntypecnt =2;
         _TKN[0]=ACTKN(0xE7d541c18D6aDb863F4C570065c57b75a53a64d3,100,6,"USDC");
         _TKN[1]=ACTKN(0xD92E713d051C37EbB2561803a3b5FBAbc4962431,100,6,"USDT");
-        nfttypeOP(NFTST("0.json",500,1,360,false,false,address(0)),
-                  NFTST("0.json",100,1,360,false,true,address(0)));//remove later
+        nfttypeOP(NFTST("0.json",500,1000,360,false,false,address(0)),
+                  NFTST("0.json",100,1000,360,false,true,address(0)));//remove later
         nfttypeOP(NFTST("0.json",500,2,360,false,false,address(0)),
                   NFTST("0.json",100,2,360,false,true,address(0)));//remove later
         nfttypeOP(NFTST("0.json",500,3,360,false,false,address(0)),
@@ -229,7 +229,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
                   NFTST("0.json",100,4,360,false,true,address(0)));//remove later          
         nfttypeOP(NFTST("0.json",100,0,360,false,false,address(0)),
                   NFTST("0.json",100,50,360,false,true,address(0)));//remove later          
-        referalsend(0x97ff501AFa23a10235297A15d71730c75f845ab7,2,2,1653801403,true);
+        referalsend(0x97ff501AFa23a10235297A15d71730c75f845ab7,2,2,1655222400,false);
     }
 	
    /* function airdropupdate(uint256 id, int gp, uint256 mtpr, uint256 lprd, uint256 rdem, uint256 rewd) private {
