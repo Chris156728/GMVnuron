@@ -7,19 +7,19 @@
                 "alt": "logo"
             }
         ],
-        "text": "Created with the collaboration of over 60 of the world's best Nuron Artists."
+        "text": "Created with the collaboration of over 60 of the world's best GameFi Associations"
     },
     "newsletter-widget": {
-        "title": "Get The Latest Nuron Updates",
+        "title": "Get The Latest Crypto4DPT Updates",
         "note": "Email is safe. We don't spam."
     },
     "quicklink-widget": {
-        "title": "Nuron",
+        "title": "Crypto4DPT",
         "menu": [
             {
                 "id": 1,
                 "text": "Protocol Explore",
-                "path": "/explore-01"
+                "path": "/"
             },
             {
                 "id": 2,
@@ -35,22 +35,9 @@
                 "id": 4,
                 "text": "Visual Checking",
                 "path": "/about"
-            },
-            {
-                "id": 5,
-                "text": "Fadeup System",
-                "path": "/blog"
-            },
-            {
-                "id": 6,
-                "text": "Activity Log",
-                "path": "/activity"
-            },
-            {
-                "id": 7,
-                "text": "System Auto Since",
-                "path": "/blog"
             }
+
+           
         ]
     },
     "information-widget": {
@@ -59,7 +46,7 @@
             {
                 "id": 1,
                 "text": "Market Explore",
-                "path": "/explore-01"
+                "path": "/"
             },
             {
                 "id": 2,
@@ -76,56 +63,13 @@
                 "text": "Main Option",
                 "path": "/about"
             },
+           
             {
                 "id": 5,
-                "text": "Blog Grid",
-                "path": "/blog"
-            },
-            {
-                "id": 6,
                 "text": "About Us",
                 "path": "/about"
-            },
-            {
-                "id": 7,
-                "text": "Fix Bug",
-                "path": "/blog"
             }
-        ]
-    },
-    "soldout-widget": {
-        "title": "Recent Sold Out",
-        "products": [
-            {
-                "id": 1,
-                "title": "#21 The Wonder",
-                "path": "/product",
-                "highestBid": "Highest bid 1/20",
-                "price": "0.244wETH",
-                "image": {
-                    "src": "/images/portfolio/portfolio-01.jpg"
-                }
-            },
-            {
-                "id": 2,
-                "title": "Diamond Dog",
-                "path": "/product",
-                "highestBid": "Highest bid 1/20",
-                "price": "0.022wETH",
-                "image": {
-                    "src": "/images/portfolio/portfolio-02.jpg"
-                }
-            },
-            {
-                "id": 3,
-                "title": "Morgan11",
-                "path": "/product",
-                "highestBid": "Highest bid 1/20",
-                "price": "0.892wETH",
-                "image": {
-                    "src": "/images/portfolio/portfolio-03.jpg"
-                }
-            }
+           
         ]
     },
     "footer-link-widget": {
@@ -142,5 +86,5 @@
             }
         ]
     },
-    "copyright_text": "©2022 Nuron, Inc. All rights reserved"
+    "copyright_text": "©2022 Crypto4DPT, Inc. All rights reserved"
 }

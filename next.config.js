@@ -16,6 +16,6 @@ module.exports = {
         return config;
     },
     images: {
-        domains: ['ipfs.io'],
+        domains: ['gameverse.mypinata.cloud','ipfs.io'],
       },
 };

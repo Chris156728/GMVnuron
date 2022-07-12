@@ -6,20 +6,65 @@
             "banners": [
                 {
                     "id": 1,
-                    "title": "The way to Mint GameFi NFT",
-                    "description": "Crypto4DPT is a game guild that focuses on playing and earning games on the blockchain, investing in NFT assets",
-                    
+                    "title": "The way to find any <br/> Digital content",
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores expedita beatae exercitationem quasi ullam esse?",
+                    "buttons": [
+                        {
+                            "id": 1,
+                            "path": "/login",
+                            "content": "Get Started"
+                        },
+                        {
+                            "id": 2,
+                            "path": "/create",
+                            "color": "primary-alta",
+                            "content": "Create"
+                        }
+                    ],
                     "image": {
                         "src": "/images/bg/bg-image-19.jpg"
                     }
                 },
                 {
                     "id": 2,
-                    "title": "The aim is benefiting NFT owners and Play-to-Earn gamers",
-                    "description": "Crypto4DPT offers scholarships to new players in a revenue-sharing model, where they can get NFT assets to start playing games",
-                    
+                    "title": "The way to find any <br/> Digital content",
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores expedita beatae exercitationem quasi ullam esse?",
+                    "buttons": [
+                        {
+                            "id": 1,
+                            "path": "/login",
+                            "content": "Get Started"
+                        },
+                        {
+                            "id": 2,
+                            "path": "/create",
+                            "color": "primary-alta",
+                            "content": "Create"
+                        }
+                    ],
                     "image": {
                         "src": "/images/bg/bg-image-18.jpg"
+                    }
+                },
+                {
+                    "id": 3,
+                    "title": "The way to find any <br/> Digital content",
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores expedita beatae exercitationem quasi ullam esse?",
+                    "buttons": [
+                        {
+                            "id": 1,
+                            "path": "/login",
+                            "content": "Get Started"
+                        },
+                        {
+                            "id": 2,
+                            "path": "/create",
+                            "color": "primary-alta",
+                            "content": "Create"
+                        }
+                    ],
+                    "image": {
+                        "src": "/images/bg/bg-image-20.jpg"
                     }
                 }
             ]
@@ -33,7 +78,7 @@
         {
             "section": "explore-product-section",
             "section_title": {
-                "title": "Explore NFT"
+                "title": "Explore Product"
             }
         },
         {

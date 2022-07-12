@@ -34,7 +34,7 @@ const Product = ({
         
     };
     const gogp = () => {
-        getgp(id);
+        if(bitCount > 0)getgp(id);
         setShowBidModal((prev) => !prev);
         
     };

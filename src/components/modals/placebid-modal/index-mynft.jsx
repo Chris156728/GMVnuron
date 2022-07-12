@@ -43,7 +43,14 @@ const PlaceBidModal = ({ show, handleModal, getgp, gp }) => (
                     <Button size="medium" fullwidth
                         onClick={getgp}
                     >
+                        {gp > 0 && <>
                         Collect Your Points
+                        </>
+                        }
+                        {gp === 0 && <>
+                        You have No Points 
+                        </>
+                        }
                     </Button>
                     <Button
                         color="primary-alta"

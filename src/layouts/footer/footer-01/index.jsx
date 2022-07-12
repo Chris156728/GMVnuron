@@ -74,9 +74,7 @@ const Footer = ({ space, className, data }) => (
                         />
                     </div>
 
-                    <div className="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
-                        <SoldOutWidget data={footerData["soldout-widget"]} />
-                    </div>
+                    
                 </div>
             </div>
         </div>

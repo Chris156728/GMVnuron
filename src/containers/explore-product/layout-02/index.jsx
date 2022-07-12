@@ -10,9 +10,9 @@ import { flatDeep } from "@utils/methods";
 import { SectionTitleType, ProductType } from "@utils/types";
 import SliderTrack from "@ui/input-range/slider-track";
 
-const ExploreProductArea = ({ className, space, data, domint }) => {
+const ExploreProductArea = ({ className, space, data, domint, chkuri, cnt }) => {
     //console.log(data.url);
-    let filterProds = data?.products;
+    //let filterProds = data?.products;
     const filters = [
         ...new Set(
             flatDeep(data?.products.map((item) => item.categories) || [])
@@ -20,33 +20,43 @@ const ExploreProductArea = ({ className, space, data, domint }) => {
     ];
     const [products, setProducts] = useState([]);
     const [hasMore, setHasMore] = useState(false);
+    const [filterProds, setFilterProds] = useState([]);
+    const [filterKey1, setFilterKey1] = useState("all");
     useEffect(() => {
-        const currentProducts = data.products.slice(0, 10);
+        const currentProducts = data.products.slice(0, 20+cnt);
         setProducts(currentProducts);
-        setHasMore(currentProducts.length < data.products.length);
+        setHasMore(currentProducts.length <= data.products.length);
+        setFilterProds(data.products);
+        filterHandler(filterKey1);
+        console.log("cnt", cnt)
     }, [data?.products]);
 
     const loadMoreHandler = () => {
-        const currentProducts = filterProds.slice(0, products.length + 4);
+        const currentProducts = filterProds?.slice(0, products.length + 20+cnt);
         setProducts(currentProducts);
-        setHasMore(currentProducts.length < filterProds.length);
+        setHasMore((currentProducts.length <= filterProds.length) || (cnt > 0));
+        chkuri();
     };
 
     const filterHandler = (filterKey) => {
         const prods = data?.products ? [...data.products] : [];
         if (filterKey === "all") {
-            filterProds =data?.products;
-            const currentProducts = filterProds.slice(0, 10);
+
+            let filterProds1 =data?.products;
+            const currentProducts = filterProds1.slice(0, 20+cnt);
             setProducts(currentProducts);
-            setHasMore(currentProducts.length < filterProds.length);
+            setHasMore(currentProducts.length <= filterProds.length || cnt > 0);
             return;
         }
-        filterProds = prods.filter((prod) =>
+        let filterProds1 = prods.filter((prod) =>
             prod.categories.includes(filterKey)
         );
-        const currentProducts = filterProds.slice(0, 10);
-        setHasMore(currentProducts.length < filterProds.length);
+        const currentProducts = filterProds1?.slice(0, 20+cnt);
+        console.log("filter length",filterProds1.length);
+        setHasMore(currentProducts.length <= filterProds1.length || cnt > 0);
         setProducts(currentProducts);
+        setFilterProds(filterProds1);
+        setFilterKey1(filterKey);
         //setProducts(filterProds);
     };
     return (

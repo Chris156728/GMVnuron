@@ -38,13 +38,13 @@
         {
             "section": "funfact-section",
             "section_title": {
-                "title": "Nuron Statistics"
+                "title": "GameVerse Statistics"
             },
             "funfacts": [
                 {
                     "id": 1,
-                    "title": "Nuron All NFT's",
-                    "counter": 100
+                    "title": "GameVerse All NFT's",
+                    "counter": 1000
                 },
                 {
                     "id": 2,
@@ -54,8 +54,8 @@
                 },
                 {
                     "id": 3,
-                    "title": "Nuron Earning",
-                    "counter": 700
+                    "title": "GameVerse Earning(ETH)",
+                    "counter": 650
                 },
                 {
                     "id": 4,
@@ -70,7 +70,7 @@
             "headings": [
                 {
                     "id": 1,
-                    "content": "Discover Discover Discover rare digital art <br/> and collect NFTs"
+                    "content": "Discover, Collect, Create Gamefi and digital art NFTs"
                 }
             ],
             "texts": [
@@ -79,27 +79,9 @@
                     "content": "The NFTs is a one-trick pony that climbed the recent years. The growth of NFTs is tremendous, and according to Pymnts.com, the total sales volume"
                 }
             ],
-            "buttons": [
-                {
-                    "id": 1,
-                    "path": "/create",
-                    "content": "Create"
-                },
-                {
-                    "id": 2,
-                    "path": "/contact",
-                    "content": "Contact Us",
-                    "color": "primary-alta"
-                }
-            ],
+            
             "image": {
                 "src": "/images/bg/bg-image-6.jpg"
-            }
-        },
-        {
-            "section": "blog-section",
-            "section_title": {
-                "title": "Our Recent Blog"
             }
         }
     ]

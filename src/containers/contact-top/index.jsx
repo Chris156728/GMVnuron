@@ -21,9 +21,10 @@ const ContactTopArea = ({ space, className }) => (
                     <div className="section-title mb--30 text-center">
                         <h2 className="title">Quick Contact Address</h2>
                         <p className="description">
-                            There are many variations of passages of Lorem Ipsum
-                            available, <br /> but the majority have suffered
-                            alteration.
+                        Crypto4DPT is a Decentralized Autonomous Organization (DAO) that <br/>
+                        invests in Non-Fungible Tokens (NFTs) used in blockchain games <br/> 
+                        combined with Decentralized Finance (DeFi) to build a metaverse <br/> 
+                        on the Ethereum blockchain economy.
                         </p>
                     </div>
                 </div>
@@ -37,8 +38,8 @@ const ContactTopArea = ({ space, className }) => (
                 >
                     <AddressBox
                         icon="feather-headphones"
-                        title="Contact Phone Number"
-                        phoneNumbers={["+444 555 666 777", "+222 222 222 333"]}
+                        title="Contact Twitter"
+                        phoneNumbers={["https://twitter.com/Crypto4DPT"]}
                     />
                 </div>
                 <div
@@ -50,21 +51,10 @@ const ContactTopArea = ({ space, className }) => (
                     <AddressBox
                         icon="feather-mail"
                         title="Our Email Address"
-                        emails={["admin@gmail.com", "example@gmail.com"]}
+                        emails={["Contact@4dpt.info"]}
                     />
                 </div>
-                <div
-                    className="col-lg-4 col-md-6 col-sm-6 col-12"
-                    data-sal="slide-up"
-                    data-sal-delay="250"
-                    data-sal-duration="800"
-                >
-                    <AddressBox
-                        icon="feather-map-pin"
-                        title="Our Location"
-                        address="5678 Bangla Main Road, cities 580 <br> GBnagla, example 54786"
-                    />
-                </div>
+                
             </div>
         </div>
     </div>

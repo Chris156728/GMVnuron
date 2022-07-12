@@ -4,6 +4,10 @@ import Header from "@layout/header/header-01";
 import Footer from "@layout/footer/footer-01";
 import Breadcrumb from "@components/breadcrumb";
 import ExploreProductArea from "@containers/explore-product/layout-08";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Web3 from "web3";
 import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js'
@@ -37,12 +41,15 @@ const Home02 = () => {
         }
       }
 
-      const [assetURIs1, setAssetURIs1] = useState(productData);
+      const [bckd, setBckd] = useState(false);
+      const [assetURIs1, setAssetURIs1] = useState([]);
       const GetUserTokens = async () => {
 		console.log('gettoken');
+        setBckd(true);
 		const userTokens = await web3props1.contract.methods.tokensOfOwner(web3props1.address).call();
-		let uripfx = 'https://ipfs.io/ipfs/';
+		let uripfx = 'https://gameverse.mypinata.cloud/ipfs/';
 		//if(!userTokens || !userTokens.length) return;
+        console.log(userTokens);
 		let tokens = [];
 		
 		// Taking advantage of the fact that token IDs are an auto-incrementing integer starting with 1.
@@ -54,7 +61,7 @@ const Home02 = () => {
 				let tokenURI = await web3props1.contract.methods.tokenURI(id).call();
 				// Fetch the json metadata the token points to
 				console.log('nftid',id);
-				let nftinfo = await web3props1.contract.methods.getNFTinfo(id, web3props1.address, 1657443705).call();
+				let nftinfo = await web3props1.contract.methods.getNFTinfo(id, web3props1.address).call();
 				console.log(nftinfo);
 				let response = await fetch(uripfx+tokenURI.substring(7));
 				let metaData = await response.json();
@@ -88,7 +95,7 @@ const Home02 = () => {
             setAssetURIs1([...tokens])
         };
 
-
+        setBckd(false);
 	};
 
     const getGP = async (idx) => {
@@ -100,7 +107,7 @@ const Home02 = () => {
 			
 			//let uresult = await usdc.methods.approve(contractAddress, 1000001).send({ from: props.address })
 			//console.log('uresult', uresult);
-			let gasLimit = await web3props1.contract.methods.gptransfer(idx,0,1657443705).estimateGas(
+			let gasLimit = await web3props1.contract.methods.gptransfer(idx,0).estimateGas(
 				{ 
 					from: web3props1.address, 
 					value: BigNumber(10000000000000000)
@@ -108,7 +115,7 @@ const Home02 = () => {
 			);
 			// Call the mint function.
 			
-			let result = await web3props1.contract.methods.gptransfer(idx,0, 1657443705)
+			let result = await web3props1.contract.methods.gptransfer(idx,0)
 				.send({ 
 					from: web3props1.address, 
 					value: BigNumber(10000000000000000),
@@ -135,7 +142,27 @@ return (
         <Header callb={gow3props} />
         <main id="main-content">
             <Breadcrumb pageTitle="Explore Simple" currentPage="Simple" />
-        
+            {bckd && <>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                    
+                  >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+                </>
+            }
+            {(!web3props1 && !bckd) && <>
+            <Box component="span" sx={{ p: 2 }}>
+                <Button><h5>Please Connect Your Wallet</h5></Button>
+            </Box></>
+            }
+            {(web3props1 && !bckd && assetURIs1?.length < 1) && <>
+            <Box component="span" sx={{ p: 2 }}>
+                <Button><h5>No NFT in Your Wallet</h5></Button>
+            </Box></>
+            }
+            {web3props1 && <>
             <ExploreProductArea
                 data={{
                     
@@ -143,6 +170,8 @@ return (
                 }}
                 getgp={getGP}
             />
+            </>
+            }
         </main>
         <Footer />
     </Wrapper>
