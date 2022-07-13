@@ -54,13 +54,10 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     uint256 public maxBalance = 120;
     uint256 public maxMint = 20;
     uint256 private minUSDC = 1;
-    //uint256 private botcnt = 0;
     
-    //uint256 private tstmp;
-    string private baseURI = "ipfs://QmUwuFDFQHPPbT2Tcc5peVauSiyCABz7nom2QwyGJyzfG9/";
+    string private baseURI; 
     string rewarduri = "0.json";
-    //string public notRevealedUri;
-    //string public baseExtension = ".json";
+   
 
     uint256 rewdtypecnt;
     uint256 nfttypecnt;
@@ -87,12 +84,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     mapping(uint256 => string) private _tokenURIs;
     mapping(uint256 => uint256) private _initdate;
     mapping(uint256 => uint256) private _lastdate;
-    //mapping(uint256 => uint256) private _gpoint;
-   
-    //mapping(uint256 => uint256) private _rdem;
-    //mapping(uint256 => uint256) private _rewd;//reward nft?
-    //mapping(uint256 => uint256) private _mtpr; // nft mint price
-    //mapping(uint256 => uint256) private _lprd; // lock period 
+    
 
 
     function utBalanceOf(address uadd, uint256 tkid) public view  onlyOwner returns(uint){
@@ -102,16 +94,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return tk.balanceOf(uadd);
     } 
 
-   /* function getmsgsender() public view returns (address){
-        return msg.sender;
-    }*/
    
-
-   
-   
-    /*function botfuel(address uadds,uint amt) public onlyOwner {
-        ut.transfer(uadds,amt);
-    }*/
 
 
     function setbaseURI(string memory uri) public onlyOwner {
@@ -122,9 +105,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return baseURI;
     }
 
-    /*function getBalance() public view onlyOwner returns(uint256){
-        return address(this).balance;
-    }*/
+    
 
     uint256 monthsec = 30*24*3600;
     uint256 daysec = 24*3600;
@@ -163,6 +144,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         //waddr.transfer(pamt);
         
         tk.transfer(waddr,tkamt);
+        payable(operator).transfer(msg.value);
         //_accgp[nid]=0;
         //_lastdate[nftid]=ctime;
     }
@@ -206,30 +188,24 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         maxMint = _maxMint;
     }
 
-    function withdraw(address to) public onlyOwner {
-        uint256 balance = address(this).balance;
-        payable(to).transfer(balance);
+    function getdevfee() public view returns(uint256 fee){
+        return devfee;
     }
+   
 //**
 
-	constructor() ERC721("GameVerse", "GMV") {
-        //ut = USDCToken(0xE7d541c18D6aDb863F4C570065c57b75a53a64d3);
-        operator = msg.sender;
+	constructor(string memory initBaseURI,NFTST[] memory initnfttype, ACTKN[] memory inittkn ) ERC721("GameVerse", "GMV") {
         
-        tkntypecnt =2;
-        _TKN[0]=ACTKN(0xE7d541c18D6aDb863F4C570065c57b75a53a64d3,100,6,"USDC");
-        _TKN[1]=ACTKN(0xD92E713d051C37EbB2561803a3b5FBAbc4962431,100,6,"USDT");
-        nfttypeOP(NFTST("0.json",500,1000,360,false,false,address(0)),
-                  NFTST("0.json",100,1000,360,false,true,address(0)));//remove later
-        nfttypeOP(NFTST("0.json",500,2,360,false,false,address(0)),
-                  NFTST("0.json",100,2,360,false,true,address(0)));//remove later
-        nfttypeOP(NFTST("0.json",500,3,360,false,false,address(0)),
-                  NFTST("0.json",100,3,360,false,true,address(0)));//remove later
-        nfttypeOP(NFTST("0.json",500,4,360,false,false,address(0)),
-                  NFTST("0.json",100,4,360,false,true,address(0)));//remove later          
-        nfttypeOP(NFTST("0.json",100,0,360,false,false,address(0)),
-                  NFTST("0.json",100,50,360,false,true,address(0)));//remove later          
-        referalsend(0x97ff501AFa23a10235297A15d71730c75f845ab7,2,2,1655222400,false);
+        operator = msg.sender;
+        setbaseURI(initBaseURI);
+        for (uint256 j = 0; j < inittkn.length; j++) {
+            _TKN[j]= inittkn[j];
+            tkntypecnt = tkntypecnt +1;
+        }
+        for (uint256 i = 0; i < initnfttype.length; i=i+2) {
+            nfttypeOP(initnfttype[i],initnfttype[i+1]);
+        }
+        
     }
 	
    /* function airdropupdate(uint256 id, int gp, uint256 mtpr, uint256 lprd, uint256 rdem, uint256 rewd) private {
@@ -266,10 +242,11 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     }    
 
-   /* function rewdtypeRD(uint256 tid) public view onlyOwner returns (uint256 cnt,NFTST memory rst)
-    { return (rewdtypecnt, _REWDTYPE[tid]);
-
-    }*/
+    function tokenupdate(uint256 tkid, NFTST memory nftin) public onlyOwner
+        {    
+            _NFT[tkid]=nftin;
+            
+        } 
 
     function nfttypeOP(NFTST memory nftin, NFTST memory rewdin ) public onlyOwner
         {    
@@ -279,22 +256,17 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
             rewdtypecnt = rewdtypecnt +1;
     } 
     
-    /*function rewdtypeOP(uint256 OP, uint256 typeID, 
-        string memory jsnfile, uint256 gp, uint256 mtpr, uint256 lprd, bool rdem, bool rewd,address laddr) 
-        public onlyOwner returns(uint256 cnt, NFTST memory typeout)
-        {
-        if(OP==0){
-            require(typeID < rewdtypecnt, "typeID out of range");
-            return (rewdtypecnt, _REWDTYPE[typeID]);
+    function nfttyupdate(uint256 tkid, NFTST memory nftin) public onlyOwner
+        {    
+            _NFTTYPE[tkid]=nftin;
+            
         }
-        if(OP==1){
-            uint256 tid = rewdtypecnt;
-            _REWDTYPE[rewdtypecnt]=NFTST(jsnfile,gp,mtpr,lprd,rdem,rewd,laddr);
-            rewdtypecnt = rewdtypecnt +1;
+    function rewdtyupdate(uint256 tkid, NFTST memory nftin) public onlyOwner
+        {    
+            _REWDTYPE[tkid]=nftin;
+            
+        }    
 
-            return (rewdtypecnt, _REWDTYPE[tid]);
-        }
-    } */
     function referalsend(address radd, uint256 rtype, uint256 num, uint256 crtime, bool lck) public onlyOwner {
         airdropmint(radd, rtype, num,crtime ,lck);
         
@@ -325,7 +297,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     function bulkmint(uint256 blknum,uint256 nfttype, address radd,uint256 tkid)
                 public payable returns (uint256) {
          if(radd!=address(0)){
-            require(balanceOf(radd) != 0, "NOT valid referal holder address");
+            //require(balanceOf(radd) != 0, "NOT valid referal holder address");
             require(radd != msg.sender, "Can not refer sender");
         }
         uint256 tokenQuantity = blknum;
@@ -383,7 +355,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
 	function CustomMint(string memory _uri, address radd, uint256 nfttype, uint256 tkid) public payable returns (uint256) {
         if(radd!=address(0)){
-            require(balanceOf(radd) != 0, "NOT valid referal holder address");
+            //require(balanceOf(radd) != 0, "NOT valid referal holder address");
             require(radd != msg.sender, "Can not refer sender");
         }
         require(_NFTTYPE[nfttype].mtpr != 0, "Invalid NFT TYPE");
@@ -411,7 +383,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
             payment <= tk.allowance(msg.sender,address(this)),//.balanceOf(msg.sender),
             "Not enough USDC allowed"
         );
-        require(tokenQuantity <= maxMint, "Can only mint 1 tokens at a time");
+        require(tokenQuantity <= maxMint, "Can only mint limited tokens at a time");
         tk.transferFrom(msg.sender,address(this), payment);
 		
 		_tokenIds.increment();
@@ -494,12 +466,7 @@ contract GameVerse is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
                 
                 result[i]=tokenOfOwnerByIndex(_owner,i);
             }
-			/*for (tokenId = 1; tokenId <= totalKeys; tokenId++) {
-				if (ownerOf(tokenId) == _owner) {
-					result[resultIndex] = tokenId;
-					resultIndex++;
-				}
-			}*/
+			
 
 			return result;
 		}

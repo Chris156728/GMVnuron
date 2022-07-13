@@ -34,11 +34,13 @@ const Header = (param) => {
     useEffect(() => {
         // When title or name changed will render
         console.log('headerrender');
-        let rurl = window.location.origin + "/";
-        let gpurl = window.location.origin + "/explore-04";
+        let rurl = "/";//window.location.origin + "/";
+        let gpurl ="/explore-04";//window.location.origin + "/explore-04";
         const curr=new URL(window.location.href);
         nowurl=curr.href;
+        //console.log("nowurl",nowurl);
 	    const refaddr=curr.searchParams.get('ref');
+        //console.log("refaddr",refaddr);
         if(!isMobileDevice()){
             // If the wallet is connected, all three values will be set. Use to display the main nav below.
              contractAvailable = !(!web3props.web3 && !web3props.accounts && !web3props.contract);
@@ -53,7 +55,8 @@ const Header = (param) => {
         let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokentype, contractaddr:conf.contractaddr, url:nowurl, 
             refaddr:refaddr, contract:web3props.contract, address:walletAddress};
             
-        if((rurl === window.location.href || gpurl === window.location.href)&& contractAvailable)
+       // if((rurl === window.location.href || gpurl === window.location.href)&& contractAvailable)
+       if((rurl === curr.pathname|| gpurl === curr.pathname)&& contractAvailable)
             if(param!==null){
             param.callb(props);
             }

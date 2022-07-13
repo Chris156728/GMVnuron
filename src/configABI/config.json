@@ -1,27 +1,27 @@
 {
-  "contractaddr": "0x55517a4aC2f6F85609ff0c589FB9F3403b0354DF",
+  "contractaddr": "0x79E66F87a8f2c2833A0f3df686EDf9Ca6Dfe5593",
   "tokenaddr": [
-				"0xE7d541c18D6aDb863F4C570065c57b75a53a64d3",
-				"0xD92E713d051C37EbB2561803a3b5FBAbc4962431"
+				"0xD92E713d051C37EbB2561803a3b5FBAbc4962431",
+        "0xE7d541c18D6aDb863F4C570065c57b75a53a64d3"
 			   ],
   "tokentype":[
           {
-            "price":1000,
+            "price":300,
+            "lckprd":360,
+            "gp":400
+          },
+          {
+            "price":5000,
             "lckprd":360,
             "gp":500
           },
           {
-            "price":2,
+            "price":10000,
             "lckprd":360,
             "gp":500
           },
           {
-            "price":3,
-            "lckprd":360,
-            "gp":500
-          },
-          {
-            "price":4,
+            "price":20000,
             "lckprd":360,
             "gp":500
           }

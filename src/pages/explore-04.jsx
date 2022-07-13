@@ -76,7 +76,9 @@ const Home02 = () => {
                 let date = new Date(nftinfo[0]*1e3);
                 let dtmp=date.toLocaleDateString();
                 ptmp.auction_date=dtmp;//.replace("/","-");
-                ptmp.bitCount=nftinfo[1]*nftinfo[5]/10000;
+                ptmp.bitCount=nftinfo[4];
+                let earn = nftinfo[1]*nftinfo[5]/10000;
+                ptmp.slug=earn.toString();
                 ptmp.price.amount=nftinfo[5];
                 ptmp.latestBid=nftinfo[6]+" Days";
                 ptmp.price.currency="USDT";
@@ -103,6 +105,7 @@ const Home02 = () => {
     const getGP = async (idx) => {
 		//const contractAddress = "0x4C32F7e1cA4F24d936110e17248587b2093F74c4";
 		console.log('claim: ', idx);
+        setBckd(true);
 		try{
 			// Estimate the gas required for the transaction
 			//console.log('caddress', contractAddress, 'waddress', props.address);
@@ -134,8 +137,9 @@ const Home02 = () => {
 			//GetTokenURIs(userTokens);
 		}catch(e){
 			console.error('There was a problem while claiming', e);
-			alert(e.message);
+			if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
 		}
+        setBckd(false);
 	};
 
 return (

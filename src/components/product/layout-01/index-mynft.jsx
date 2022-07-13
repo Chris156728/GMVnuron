@@ -35,7 +35,7 @@ const Product = ({
         
     };
     const gogp = () => {
-        if(bitCount > 0)getgp(id);
+        if(Number(slug) > 0)getgp(id);
         setShowBidModal((prev) => !prev);
         
     };
@@ -81,14 +81,16 @@ const Product = ({
                             
                         >
 
-                            {bitCount} GameFi Points
+                            {bitCount} GameFi Power
                         </a>
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
                 <a onClick={handleBidModal}>
-                    <span className="product-name">Token ID:{tkid}</span>
+                    <span className="product-name">Token ID:{tkid} &nbsp;&nbsp; points:{slug}</span>
+                    
                 </a>
+                
                 <a onClick={handleBidModal}>
                     <span className="latest-bid">{title}<br/></span>
                 </a>
@@ -96,7 +98,7 @@ const Product = ({
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
             <PlaceBidModal show={showBidModal} handleModal={handleBidModal}
-                 getgp={gogp} gp={bitCount}
+                 getgp={gogp} gp={Number(slug)}
              />
         </>
     );

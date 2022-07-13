@@ -207,6 +207,7 @@ let tkid =0;
 			
 			let uresult = await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
 			//console.log('uresult', uresult);
+      
 				
 			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
 				{ 
@@ -234,7 +235,8 @@ let tkid =0;
 
 		}catch(e){
 			console.error('There was a problem while minting', e);
-			alert(e.message);
+      if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
+
 		}
   } else {
     alert("Please connect your wallet");
