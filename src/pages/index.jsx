@@ -173,7 +173,7 @@ let tkid =0;
   const DoMint = async (tokenURI,pid) => {
     
     if(web3props!==null){
-      setBckd(true);
+     setBckd(true);
 		const contractAddress = web3props.contractaddr;//"0x7a7b4757543987dD07936D473Ead236ebcdc4999";
 		const nAddress = "0x0000000000000000000000000000000000000000";
 		const web3 = new Web3(window.web3.currentProvider);
@@ -181,6 +181,10 @@ let tkid =0;
 		const usdc = new web3.eth.Contract(minABI, tokenAddress);
 		console.log(contractAddress);
 		console.log('minting: ', tokenURI,pid);
+
+    
+
+    
 		gomint:try{
 			// Estimate the gas required for the transaction
 			//console.log('caddress', contractAddress, 'waddress', props.address);
@@ -206,8 +210,8 @@ let tkid =0;
 			
 			
 			let uresult = await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
-			//console.log('uresult', uresult);
-      
+			console.log('uresult', uresult);
+      //setBckd(true);
 				
 			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
 				{ 
@@ -235,6 +239,7 @@ let tkid =0;
 
 		}catch(e){
 			console.error('There was a problem while minting', e);
+      setBckd(false);
       if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
 
 		}

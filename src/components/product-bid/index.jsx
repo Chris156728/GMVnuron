@@ -4,6 +4,7 @@ const ProductBid = ({ price, likeCount }) => (
     <div className="bid-react-area">
         <div className="last-bid">
             {price.amount}
+            &nbsp;
             {price.currency}
         </div>
         <div className="react-area">
