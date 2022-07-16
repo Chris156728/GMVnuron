@@ -18,56 +18,9 @@ import homepageData from "../data/homepages/home-06.json";
 import productData from "../data/product-init.json";
 //import productData1 from "../data/products-02.json";
 import conf from "../configABI/config.json";
+import minABI from "../configABI/usd.json";
 
 
-const minABI = [
-      // balanceOf
-      {
-        "constant":true,
-        "inputs":[{"name":"_owner","type":"address"}],
-        "name":"balanceOf",
-        "outputs":[{"name":"balance","type":"uint256"}],
-        "type":"function"
-      },
-      // decimals
-      {
-        "constant":true,
-        "inputs":[],
-        "name":"decimals",
-        "outputs":[{"name":"","type":"uint8"}],
-        "type":"function"
-      },
-      {
-        "constant": false,
-        "inputs": [{name: "_to",type: "address",},{name: "_value",type: "uint256",},],
-        "name": "transfer",
-        "outputs": [{name: "",type: "bool",},],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [{name: "usr",type: "address",},{name: "wad",type: "uint256",},],
-        "name": "approve",
-        "outputs": [{name: "",type: "bool",},],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-	  {
-        "constant": false,
-        "inputs": [{name: "usr",type: "address",},{name: "wad",type: "uint256",},],
-        "name": "allowance",
-        "outputs": [{name: "allowance",type: "uint256",},],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-	  
-	  //{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-	  
-    ];
 
 
 export async function getStaticProps() {
@@ -216,7 +169,7 @@ let tkid =0;
 			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
 				{ 
 					from: web3props.address, 
-					value: 10000000000000000
+					value: 8000000000000000000
 				}
 			);
 			// Call the mint function.
@@ -224,7 +177,7 @@ let tkid =0;
 			let result = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
 				.send({ 
 					from: web3props.address, 
-					value: 10000000000000000,
+					value: 8000000000000000000,
 					// Setting the gasLimit with the estimate accuired above helps ensure accurate estimates in the wallet transaction.
 					gasLimit: gasLimit
 				});

@@ -115,7 +115,7 @@ const Home02 = () => {
 			let gasLimit = await web3props1.contract.methods.gptransfer(idx,0).estimateGas(
 				{ 
 					from: web3props1.address, 
-					value: BigNumber(10000000000000000)
+					value: 8000000000000000000
 				}
 			);
 			// Call the mint function.
@@ -123,7 +123,7 @@ const Home02 = () => {
 			let result = await web3props1.contract.methods.gptransfer(idx,0)
 				.send({ 
 					from: web3props1.address, 
-					value: BigNumber(10000000000000000),
+					value: BigNumber(8000000000000000000),
 					// Setting the gasLimit with the estimate accuired above helps ensure accurate estimates in the wallet transaction.
 					gasLimit: gasLimit
 				});

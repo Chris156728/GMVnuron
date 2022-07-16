@@ -80,7 +80,7 @@ if (typeof window !== "undefined") {
 
 	// Callback function for the Login component to give us access to the web3 instance and contract functions
 	
-const targetNetworkId = '0x1';
+const targetNetworkId = '0x89';
 	
 const homepage = window.location.href;	
 const chainChangedHandler = () => {

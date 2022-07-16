@@ -1,8 +1,8 @@
 {
   "contractaddr": "0xE3EfF26b39177C99f7345Ba8A0f20682dEFe761f",
   "tokenaddr": [
-				"0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+				"0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
 			   ],
   "tokentype":[
           {
