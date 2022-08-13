@@ -138,7 +138,7 @@ let tkid =0;
     
 
     
-		gomint:try{
+	//	gomint:try{
 			// Estimate the gas required for the transaction
 			//console.log('caddress', contractAddress, 'waddress', props.address);
 			let refaddr = web3props.refaddr;
@@ -149,31 +149,54 @@ let tkid =0;
 				if(!valid) {
 					alert("referral address format not valid")
 					window.location.assign(web3props.url);
-					break gomint;
+          setBckd(false);
+          return;
+				//	break gomint;
 				}	
 				if(refaddr==web3props.address){
 					alert("Can not refer yourself");
 					window.location.assign("/");
-					break gomint;
+          setBckd(false);
+          return;
+				//	break gomint;
 				}
 			}
 			else {
 				refaddr = nAddress;
 			}
 			
-			
+			try{
 			let uresult = await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
 			console.log('uresult', uresult);
-      //setBckd(true);
-				
+      /*if(uresult.message ==="MetaMask Tx Signature: User denied transaction signature.") {
+        setBckd(false);
+        return;
+      }*/
+    }catch(e){
+      console.error('There was a problem while minting', e);
+      setBckd(false);
+      alert(e.message);
+      return;
+      //if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
+
+    }
+			try{
 			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
 				{ 
 					from: web3props.address, 
 					value: 8000000000000000000
 				}
 			);
+      }catch(e){
+        console.error('There was a problem while minting', e);
+        setBckd(false);
+        alert(e.message);
+        return;
+        //if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
+  
+      }
 			// Call the mint function.
-			
+			try{
 			let result = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
 				.send({ 
 					from: web3props.address, 
@@ -181,7 +204,14 @@ let tkid =0;
 					// Setting the gasLimit with the estimate accuired above helps ensure accurate estimates in the wallet transaction.
 					gasLimit: gasLimit
 				});
-
+      }catch(e){
+        console.error('There was a problem while minting', e);
+        setBckd(false);
+        alert(e.message);
+        return;
+        //if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
+  
+      }
 			// Output the result for the console during development. This will help with debugging transaction errors.
 			console.log('result', result);
 
@@ -190,12 +220,12 @@ let tkid =0;
 			//CheckAssetURIs();
       window.location.assign("/explore-04");
 
-		}catch(e){
+	/*	}catch(e){
 			console.error('There was a problem while minting', e);
       setBckd(false);
       if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
 
-		}
+		}*/
   } else {
     alert("Please connect your wallet");
   }
