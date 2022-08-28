@@ -14,8 +14,12 @@
     "dependencies": {
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
+        "@ethersproject/providers": "^5.7.0",
         "@material/circular-progress": "^14.0.0",
         "@mui/material": "^5.8.7",
+        "@walletconnect/web3-provider": "^1.8.0",
+        "@web3-react/core": "^6.1.9",
+        "@web3-react/walletconnect-connector": "^6.2.13",
         "axios": "^0.26.0",
         "bignumber.js": "^9.0.2",
         "bootstrap": "5.1.3",

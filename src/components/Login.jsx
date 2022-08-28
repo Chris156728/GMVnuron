@@ -1,7 +1,12 @@
 import React from "react";
 import Web3 from "web3";
-
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { useWeb3React } from "@web3-react/core";
+//import { Web3ReactProvider } from '@web3-react/core'
+//import { Web3Provider } from "@ethersproject/providers";
 import ExobitsABI from "../configABI/ReExoBits.json";
+
 
 export default function Login(props) {
 	if (typeof window !== "undefined") {
@@ -13,12 +18,44 @@ export default function Login(props) {
 	console.log(props.address);
 			// TODO enter your dapp URL. For example: https://uniswap.exchange. (don't enter the "https://")
 	const metamaskAppDeepLink = "https://metamask.app.link/dapp/" + dappUrl;
+	const {
+		library,
+		chainId,
+		account,
+		activate,
+		deactivate,
+		active
+	  } = useWeb3React();
 	const DoConnect = async () => {
 
 		console.log('Connecting....');
 		try {
 			// Get network provider and web3 instance.
-			const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+			if(!window.ethereum){
+			
+				const provider = new WalletConnectProvider({
+					rpc: {
+					  1: "https://mainnet.infura.io/v3/84842078b09946638c03157f83405213",
+					  3: "https://ropsten.infura.io/v3/84842078b09946638c03157f83405213",
+					  137: "https://polygon-rpc.com",
+					  80001: "https://matic-mumbai.chainstacklabs.com"
+					  // ...
+					},
+					//qrcode: false
+				  });
+				  
+				  //  Enable session (triggers QR Code modal)
+				await provider.enable();
+				/*const walletconnect = new WalletConnectConnector({
+					//rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
+					bridge: "https://bridge.walletconnect.org",
+					qrcode: true
+				  });
+				  await activate(walletconnect);
+				  let { provider } = await walletconnect.activate();*/
+			   web3 = new Web3(provider);
+			}
 			// Request account access if needed
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
@@ -42,10 +79,14 @@ export default function Login(props) {
 			DoConnect();
 			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
 		} else {
-			return <a href={metamaskAppDeepLink}>
+			/*return <a href={metamaskAppDeepLink}>
 				<button color="primary-alta"
 			className="connectBtn"
-			size="small">Connect Wallet</button></a>;
+			size="small">Connect Wallet</button></a>;*/
+			return <button onClick={DoConnect} color="primary-alta"
+			className="connectBtn"
+			size="small">Connect Wallet</button>;
+			//DoConnect();
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
