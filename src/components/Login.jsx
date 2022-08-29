@@ -34,7 +34,7 @@ export default function Login(props) {
 			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
-				const provider = new WalletConnectProvider({
+				/*const provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/84842078b09946638c03157f83405213",
 					  3: "https://ropsten.infura.io/v3/84842078b09946638c03157f83405213",
@@ -46,14 +46,14 @@ export default function Login(props) {
 				  });
 				  
 				  //  Enable session (triggers QR Code modal)
-				await provider.enable();
-				/*const walletconnect = new WalletConnectConnector({
-					//rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
+				await provider.enable();*/
+				const walletconnect = new WalletConnectConnector({
+					rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
 					bridge: "https://bridge.walletconnect.org",
 					qrcode: true
 				  });
 				  await activate(walletconnect);
-				  let { provider } = await walletconnect.activate();*/
+				  let { provider } = await walletconnect.activate();
 			   web3 = new Web3(provider);
 			}
 			// Request account access if needed
@@ -95,8 +95,14 @@ export default function Login(props) {
 		size="small">{props.address.slice(0,6)}</button>;
 	}
 	else {
-		return <button color="primary-alta"
-		className="connectBtn"
-		size="small">Connect Wallet</button>; 
+		if(!props.connected) {
+			return <button color="primary-alta"
+			className="connectBtn"
+			size="small">Connect Wallet</button>; 
+		} else {
+			return <button color="primary-alta"
+			className="connectBtn"
+			size="small">{props.address.slice(0,6)}</button>;
+		}
 	}
 }
