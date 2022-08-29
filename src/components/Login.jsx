@@ -60,6 +60,7 @@ export default function Login(props) {
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
+			alert("account:"+accounts);
 			// Get an instance of the contract sop we can call our contract functions
 			const instance = new web3.eth.Contract(
 				ExobitsABI, 
