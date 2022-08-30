@@ -1,5 +1,6 @@
-import React from "react";
+//import React from "react";
 import Web3 from "web3";
+import React, { useState,useEffect } from "react";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { useWeb3React } from "@web3-react/core";
@@ -26,6 +27,33 @@ export default function Login(props) {
 		deactivate,
 		active
 	  } = useWeb3React();
+
+	  //const [conn, setConn] = useState(null);
+	  const walletconnect = new WalletConnectConnector({
+		rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
+		bridge: "https://bridge.walletconnect.org",
+		qrcode: true
+	  });
+	  useEffect(async () => {
+		//if(window.ethereum){
+			DoConnect();
+			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
+		//} else {
+		await activate(walletconnect);
+		let { provider } = await walletconnect.activate();
+		let web3 = new Web3(provider);
+		await window.ethereum.request({ method: 'eth_requestAccounts' })
+			// Use web3 to get the user's accounts.
+			const accounts = await web3.eth.getAccounts();
+			
+			// Get an instance of the contract sop we can call our contract functions
+			const instance = new web3.eth.Contract(
+				ExobitsABI, 
+				contractAddress
+			);
+			props.callback({ web3, accounts, contract: instance });
+		//}
+	  },[]);
 	const DoConnect = async () => {
 
 		console.log('Connecting....');
@@ -34,7 +62,7 @@ export default function Login(props) {
 			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
-				const provider = new WalletConnectProvider({
+				/*const provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
 					  3: "https://ropsten.infura.io/v3/",
@@ -46,7 +74,8 @@ export default function Login(props) {
 				  });
 				  
 				  //  Enable session (triggers QR Code modal)
-				await provider.enable();
+				await provider.enable();*/
+
 				/*const walletconnect = new WalletConnectConnector({
 					rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
 					bridge: "https://bridge.walletconnect.org",
@@ -55,13 +84,13 @@ export default function Login(props) {
 				  await activate(walletconnect);
 				  let { provider } = await walletconnect.activate();*/
 
-			   web3 = new Web3(provider);
+			  // web3 = new Web3(provider);
 			}
 			// Request account access if needed
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
-			alert("account:"+accounts);
+			
 			// Get an instance of the contract sop we can call our contract functions
 			const instance = new web3.eth.Contract(
 				ExobitsABI, 
