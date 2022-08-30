@@ -56,6 +56,10 @@ export default function Login(props) {
 			props.callback({ web3, accounts, contract: instance });
 		//}
 	  },[conn]);*/
+	  const disconnect = () => {
+		
+		deactivate();
+	  }; 
 	const DoConnect = async () => {
 
 		console.log('Connecting....');
@@ -72,7 +76,7 @@ export default function Login(props) {
 					  80001: "https://matic-mumbai.chainstacklabs.com"
 					  // ...
 					},
-					//qrcode: true
+					qrcode: true
 				  });
 				  
 				  //  Enable session (triggers QR Code modal)
@@ -133,7 +137,7 @@ export default function Login(props) {
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
-	return <button color="primary-alta"
+	return <button onClick={deactivate} color="primary-alta"
 		className="connectBtn"
 		size="small">{props.address.slice(0,6)}</button>;
 	}
@@ -143,7 +147,7 @@ export default function Login(props) {
 			className="connectBtn"
 			size="small">Connect Wallet</button>; 
 		} else {
-			return <button color="primary-alta"
+			return <button onClick={deactivate} color="primary-alta"
 			className="connectBtn"
 			size="small">{props.address.slice(0,6)}</button>;
 		}
