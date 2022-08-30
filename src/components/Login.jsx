@@ -7,6 +7,7 @@ import { useWeb3React } from "@web3-react/core";
 //import { Web3ReactProvider } from '@web3-react/core'
 //import { Web3Provider } from "@ethersproject/providers";
 import ExobitsABI from "../configABI/ReExoBits.json";
+import { stepConnectorClasses } from "@mui/material";
 
 
 export default function Login(props) {
@@ -28,7 +29,7 @@ export default function Login(props) {
 		active
 	  } = useWeb3React();
 
-	  //const [conn, setConn] = useState(null);
+	  const [conn, setConn] = useState(null);
 	  const walletconnect = new WalletConnectConnector({
 		rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
 		bridge: "https://bridge.walletconnect.org",
@@ -39,6 +40,11 @@ export default function Login(props) {
 			//DoConnect();
 			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
 		//} else {
+			/*const walletconnect = new WalletConnectConnector({
+				rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
+				bridge: "https://bridge.walletconnect.org",
+				qrcode: true
+			  });*/	
 		await activate(walletconnect);
 		let { provider } = await walletconnect.activate();
 		let web3 = new Web3(provider);
@@ -53,7 +59,7 @@ export default function Login(props) {
 			);
 			props.callback({ web3, accounts, contract: instance });
 		//}
-	  },[]);
+	  },[conn]);
 	const DoConnect = async () => {
 
 		console.log('Connecting....');
@@ -85,6 +91,8 @@ export default function Login(props) {
 				  let { provider } = await walletconnect.activate();*/
 
 			  // web3 = new Web3(provider);
+			  let web3 = null;
+			  setConn(web3);
 			}
 			// Request account access if needed
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
