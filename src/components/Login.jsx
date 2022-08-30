@@ -87,9 +87,16 @@ export default function Login(props) {
 				  let { provider } = await walletconnect.activate();
 				  alert("acc:"+account)
 			   web3 = new Web3(provider);
+			   const accounts = await web3.eth.getAccounts();
+			   alert("accs:"+accounts)
+			   const instance = new web3.eth.Contract(
+				ExobitsABI, 
+				contractAddress
+			);
+			props.callback({ web3, accounts, contract: instance });
 			  //let web3 = null;
 			  //setConn(web3);
-			}
+			} else {
 			// Request account access if needed
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
@@ -101,6 +108,7 @@ export default function Login(props) {
 				contractAddress
 			);
 			props.callback({ web3, accounts, contract: instance });
+			}
 
 		} catch (error) {
 			// Catch any errors for any of the above operations.
