@@ -72,7 +72,7 @@ export default function Login(props) {
 					  80001: "https://matic-mumbai.chainstacklabs.com"
 					  // ...
 					},
-					//qrcode: false
+					qrcode: true
 				  });
 				  
 				  //  Enable session (triggers QR Code modal)
