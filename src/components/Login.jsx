@@ -69,7 +69,7 @@ export default function Login(props) {
 			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
-				provider = new WalletConnectProvider({
+				let provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
 					  3: "https://ropsten.infura.io/v3/",
