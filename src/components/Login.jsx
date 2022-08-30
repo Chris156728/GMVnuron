@@ -56,9 +56,9 @@ export default function Login(props) {
 			props.callback({ web3, accounts, contract: instance });
 		//}
 	  },[conn]);*/
-	  let provider = null;
+	 /* let provider = null;*/
 	  const Disconnect =async () => {
-		await provider.disconnect()
+		//await provider.disconnect()
 		//deactivate();
 	  }; 
 	const DoConnect = async () => {
