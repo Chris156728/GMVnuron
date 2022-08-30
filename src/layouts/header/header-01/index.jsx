@@ -47,7 +47,8 @@ const Header = (param) => {
             // Grab the connected wallet address, if available, to pass into the Login component
              walletAddress = web3props.accounts ? web3props.accounts[0] : "";
         } 
-        if(isMobileDevice() && window.ethereum){
+        //if(isMobileDevice() && window.ethereum){
+        if(isMobileDevice()){
             contractAvailable = !(!web3props.web3 && !web3props.accounts && !web3props.contract);
             // Grab the connected wallet address, if available, to pass into the Login component
              walletAddress = web3props.accounts ? web3props.accounts[0] : "";
