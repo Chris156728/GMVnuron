@@ -139,7 +139,7 @@ export default function Login(props) {
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
-	return <button color="primary-alta"
+	return <button onClick={Disconnect} color="primary-alta"
 		className="connectBtn"
 		size="small">{props.address.slice(0,6)}</button>;
 	}
