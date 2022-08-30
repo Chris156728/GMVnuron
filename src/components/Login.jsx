@@ -56,9 +56,10 @@ export default function Login(props) {
 			props.callback({ web3, accounts, contract: instance });
 		//}
 	  },[conn]);*/
-	  const disconnect = () => {
-		
-		deactivate();
+	  let provider = null;
+	  const Disconnect =async () => {
+		await provider.disconnect()
+		//deactivate();
 	  }; 
 	const DoConnect = async () => {
 
@@ -68,7 +69,7 @@ export default function Login(props) {
 			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
-				/*const provider = new WalletConnectProvider({
+				provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
 					  3: "https://ropsten.infura.io/v3/",
@@ -76,20 +77,21 @@ export default function Login(props) {
 					  80001: "https://matic-mumbai.chainstacklabs.com"
 					  // ...
 					},
-					qrcode: true
+					//qrcode: true
 				  });
 				  
 				  //  Enable session (triggers QR Code modal)
-				await provider.enable();*/
+				await provider.enable();
 
-				const walletconnect = new WalletConnectConnector({
+				/*const walletconnect = new WalletConnectConnector({
 					rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
 					bridge: "https://bridge.walletconnect.org",
 					qrcode: true
 				  });
 				  await activate(walletconnect);
 				  let { provider } = await walletconnect.activate();
-				  //alert("acc:"+account)
+				  //alert("acc:"+account)*/
+
 			   web3 = new Web3(provider);
 			   const accounts = await web3.eth.getAccounts();
 			  // alert("accs:"+accounts)
@@ -137,7 +139,7 @@ export default function Login(props) {
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
-	return <button onClick={deactivate} color="primary-alta"
+	return <button color="primary-alta"
 		className="connectBtn"
 		size="small">{props.address.slice(0,6)}</button>;
 	}
@@ -147,7 +149,7 @@ export default function Login(props) {
 			className="connectBtn"
 			size="small">Connect Wallet</button>; 
 		} else {
-			return <button onClick={deactivate} color="primary-alta"
+			return <button onClick={Disconnect} color="primary-alta"
 			className="connectBtn"
 			size="small">{props.address.slice(0,6)}</button>;
 		}
