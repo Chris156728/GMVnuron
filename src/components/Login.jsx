@@ -36,7 +36,7 @@ export default function Login(props) {
 	  });
 	  useEffect(async () => {
 		//if(window.ethereum){
-			DoConnect();
+			//DoConnect();
 			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
 		//} else {
 		await activate(walletconnect);
