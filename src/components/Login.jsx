@@ -37,7 +37,7 @@ export default function Login(props) {
 	 //let web3 = null;
 	 //let currentChainId = null;
 	  const Disconnect =async () => {
-		//await provider.disconnect()
+		if(provider) {await provider.disconnect()}
 		window.localStorage.setItem("provider", undefined);
 		
 		setConnflag(false);
