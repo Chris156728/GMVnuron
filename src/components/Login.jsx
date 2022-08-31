@@ -119,14 +119,14 @@ export default function Login(props) {
 		location.reload();
 		
 	}  
-	const targetNetworkId = 137;
+	const targetNetworkId = '0x89';
 	const checkNetwork = async () => {
 		
 		  // return true if network id is the same
 		  if(web3){
 		  currentChainId = await web3.eth.getChainId();
 		  if (currentChainId !== targetNetworkId) {
-			console.log("NO networkmatch:", currentChainId, targetNetworkId);
+			alert("NO networkmatch:"+currentChainId+":"+targetNetworkId);
 			return true;
 		}
 		console.log("networkmatch");
