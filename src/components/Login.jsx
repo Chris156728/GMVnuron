@@ -32,6 +32,7 @@ export default function Login(props) {
 	  const [connflag, setConnflag] = useState(true);
 	  
 	 let provider = null;
+	 let web3 = null;
 	  const Disconnect =async () => {
 		//await provider.disconnect()
 		window.localStorage.setItem("provider", undefined);
@@ -70,7 +71,7 @@ export default function Login(props) {
 				  let { provider } = await walletconnect.activate();
 				  //alert("acc:"+account)*/
 
-			   let web3 = new Web3(provider);
+				 web3 = new Web3(provider);
 			   const accounts = await web3.eth.getAccounts();
 			  // alert("accs:"+accounts)
 			   const instance = new web3.eth.Contract(
@@ -78,11 +79,14 @@ export default function Login(props) {
 				contractAddress
 			);
 			props.callback({ web3, accounts, contract: instance });
-			  //let web3 = null;
-			  //setConn(web3);
+			provider.on("accountsChanged", chainChangedHandler);
+			  
+			  // Subscribe to chainId change
+			  provider.on("chainChanged", chainChangedHandler);  
+
 			} else {
 			// Request account access if needed
-			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+			 web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
@@ -103,7 +107,46 @@ export default function Login(props) {
 		}
 	};
 	
+	function isMobileDevice() {
+ 
+		return 'ontouchstart' in window || 'onmsgesturechange' in window;
+	  }
+	  const chainChangedHandler = () => {
+		// reload the page to avoid any errors with chain change mid use of application
+		location.reload();
+		
+	}  
+	const targetNetworkId = '0x89';
+	const checkNetwork = async () => {
+		
+		  // return true if network id is the same
+		  if(web3){
+		  const currentChainId = await web3.eth.getChainId();
+		  if (currentChainId !== targetNetworkId) return true;
+			}
+		  
+		  // return false is network id is different
+		  return false;
+		
+	  };
+	  const switchNetwork = async () => {
+		if(provider){
+		await provider.request({
+		  method: 'wallet_switchEthereumChain',
+		  params: [{ chainId: targetNetworkId }],
+		});
+		}
+		//console.log('switch');
+		// refresh
+		//window.location.reload();
+	  };
+
 	// If not connected, display the connect button.
+	if(checkNetwork() && isMobileDevice()){
+		//alert('please switch network');
+		switchNetwork();
+		//alert('please switch net');
+	}
 	const conn = window.localStorage.getItem("provider");
 	if(!props.connected || conn!=="conn") {
 		//const conn = window.localStorage.getItem("provider");
@@ -111,9 +154,16 @@ export default function Login(props) {
 		if(conn === "conn"){
 			DoConnect();
 		} else {
-			return <button onClick={DoConnect} color="primary-alta"
-			className="connectBtn"
-			size="small">Connect Wallet</button>;
+			if(!window.ethereum && !isMobileDevice()){
+				return <a href={metamaskAppDeepLink}>
+				<button color="primary-alta"
+				className="connectBtn"
+				size="small">Connect Wallet</button></a>
+			} else {
+				return <button onClick={DoConnect} color="primary-alta"
+				className="connectBtn"
+				size="small">Connect Wallet</button>;
+			}
 		}
 		if(window.ethereum){
 			//DoConnect();
