@@ -66,7 +66,7 @@ export default function Login(props) {
 		console.log('Connecting....');
 		try {
 			// Get network provider and web3 instance.
-			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+			//let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
 				let provider = new WalletConnectProvider({
@@ -92,7 +92,7 @@ export default function Login(props) {
 				  let { provider } = await walletconnect.activate();
 				  //alert("acc:"+account)*/
 
-			   web3 = new Web3(provider);
+			   let web3 = new Web3(provider);
 			   const accounts = await web3.eth.getAccounts();
 			  // alert("accs:"+accounts)
 			   const instance = new web3.eth.Contract(
@@ -104,6 +104,7 @@ export default function Login(props) {
 			  //setConn(web3);
 			} else {
 			// Request account access if needed
+			let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
