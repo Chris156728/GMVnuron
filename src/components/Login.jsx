@@ -80,14 +80,14 @@ export default function Login(props) {
 			   currentChainId = await web3.eth.getChainId();
 			   if (currentChainId !== targetNetworkId) {
 				alert('please switch network');
-				try {	
+				//try {	
 					await provider.request({
 					  method: 'wallet_switchEthereumChain',
 					  params: [{ chainId: chID }],
 					});
-				} catch (switchError) {
-					alert(switchError.message);
-				}
+				//} catch (switchError) {
+					//alert(switchError.message);
+				//}
 			   }
 			  // alert("accs:"+accounts)
 			   const instance = new web3.eth.Contract(
