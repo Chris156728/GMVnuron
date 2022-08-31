@@ -33,6 +33,7 @@ export default function Login(props) {
 	  
 	 let provider = null;
 	 let web3 = null;
+	 let currentChainId = null;
 	  const Disconnect =async () => {
 		//await provider.disconnect()
 		window.localStorage.setItem("provider", undefined);
@@ -73,6 +74,7 @@ export default function Login(props) {
 
 				 web3 = new Web3(provider);
 			   const accounts = await web3.eth.getAccounts();
+			   currentChainId = await web3.eth.getChainId();
 			  // alert("accs:"+accounts)
 			   const instance = new web3.eth.Contract(
 				ExobitsABI, 
@@ -80,9 +82,7 @@ export default function Login(props) {
 			);
 			props.callback({ web3, accounts, contract: instance });
 			provider.on("accountsChanged", chainChangedHandler);
-			  
-			  // Subscribe to chainId change
-			  provider.on("chainChanged", chainChangedHandler);  
+			provider.on("chainChanged", chainChangedHandler);  
 
 			} else {
 			// Request account access if needed
@@ -90,7 +90,7 @@ export default function Login(props) {
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
-			
+			 currentChainId = await web3.eth.getChainId();
 			// Get an instance of the contract sop we can call our contract functions
 			const instance = new web3.eth.Contract(
 				ExobitsABI, 
@@ -120,10 +120,10 @@ export default function Login(props) {
 	const checkNetwork = async () => {
 		
 		  // return true if network id is the same
-		  if(web3){
-		  const currentChainId = await web3.eth.getChainId();
+		  //if(web3){
+		 // const currentChainId = await web3.eth.getChainId();
 		  if (currentChainId !== targetNetworkId) return true;
-			}
+			//}
 		  
 		  // return false is network id is different
 		  return false;
