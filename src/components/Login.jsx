@@ -9,7 +9,9 @@ import { useWeb3React } from "@web3-react/core";
 import ExobitsABI from "../configABI/ReExoBits.json";
 import { stepConnectorClasses } from "@mui/material";
 
-
+let provider = null;
+let web3 = null;
+let currentChainId = null;
 export default function Login(props) {
 	if (typeof window !== "undefined") {
 	const curr=props.url;//props.url;//window.location.href;
@@ -31,9 +33,9 @@ export default function Login(props) {
 
 	  const [connflag, setConnflag] = useState(true);
 	  
-	 let provider = null;
-	 let web3 = null;
-	 let currentChainId = null;
+	 //let provider = null;
+	 //let web3 = null;
+	 //let currentChainId = null;
 	  const Disconnect =async () => {
 		//await provider.disconnect()
 		window.localStorage.setItem("provider", undefined);
@@ -74,7 +76,7 @@ export default function Login(props) {
 
 				 web3 = new Web3(provider);
 			   const accounts = await web3.eth.getAccounts();
-			   currentChainId = await web3.eth.getChainId();
+			   //currentChainId = await web3.eth.getChainId();
 			  // alert("accs:"+accounts)
 			   const instance = new web3.eth.Contract(
 				ExobitsABI, 
@@ -90,7 +92,8 @@ export default function Login(props) {
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
 			const accounts = await web3.eth.getAccounts();
-			 currentChainId = await web3.eth.getChainId();
+			// currentChainId = await web3.eth.getChainId();
+			 //console.log("chainID:", currentChainId);
 			// Get an instance of the contract sop we can call our contract functions
 			const instance = new web3.eth.Contract(
 				ExobitsABI, 
@@ -116,14 +119,18 @@ export default function Login(props) {
 		location.reload();
 		
 	}  
-	const targetNetworkId = '0x89';
+	const targetNetworkId = 137;
 	const checkNetwork = async () => {
 		
 		  // return true if network id is the same
-		  //if(web3){
-		 // const currentChainId = await web3.eth.getChainId();
-		  if (currentChainId !== targetNetworkId) return true;
-			//}
+		  if(web3){
+		  currentChainId = await web3.eth.getChainId();
+		  if (currentChainId !== targetNetworkId) {
+			console.log("NO networkmatch:", currentChainId, targetNetworkId);
+			return true;
+		}
+		console.log("networkmatch");
+			}
 		  
 		  // return false is network id is different
 		  return false;
@@ -145,8 +152,9 @@ export default function Login(props) {
 	  };
 	}
 	// If not connected, display the connect button.
+	//console.log("NO networkmatch:", currentChainId, targetNetworkId);
 	if(checkNetwork() && isMobileDevice()){
-		alert('please switch network');
+		//alert('please switch network');
 		switchNetwork();
 		//alert('please switch net');
 	}
