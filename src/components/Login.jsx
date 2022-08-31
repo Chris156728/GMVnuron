@@ -131,19 +131,22 @@ export default function Login(props) {
 	  };
 	  const switchNetwork = async () => {
 		if(provider){
-		await provider.request({
-		  method: 'wallet_switchEthereumChain',
-		  params: [{ chainId: targetNetworkId }],
-		});
-		}
+			try {	
+				await provider.request({
+		  		method: 'wallet_switchEthereumChain',
+		 		 params: [{ chainId: targetNetworkId }],
+				});
+			} catch (switchError) {
+				alert(switchError.message);
+			}
 		//console.log('switch');
 		// refresh
 		//window.location.reload();
 	  };
-
+	}
 	// If not connected, display the connect button.
 	if(checkNetwork() && isMobileDevice()){
-		//alert('please switch network');
+		alert('please switch network');
 		switchNetwork();
 		//alert('please switch net');
 	}
