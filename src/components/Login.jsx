@@ -29,37 +29,15 @@ export default function Login(props) {
 		active
 	  } = useWeb3React();
 
-	  /*const [conn, setConn] = useState(null);
-	  const walletconnect = new WalletConnectConnector({
-		rpcUrl: "https://mainnet.infura.io/v3/f0060938825d4f74b5c3c8e6a5aadcaf",
-		bridge: "https://bridge.walletconnect.org",
-		qrcode: true
-	  });
-	  useEffect(async () => {
-		//if(window.ethereum){
-			//DoConnect();
-			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
-		//} else {
-			
-		await activate(walletconnect);
-		let { provider } = await walletconnect.activate();
-		let web3 = new Web3(provider);
-		await window.ethereum.request({ method: 'eth_requestAccounts' })
-			// Use web3 to get the user's accounts.
-			const accounts = await web3.eth.getAccounts();
-			
-			// Get an instance of the contract sop we can call our contract functions
-			const instance = new web3.eth.Contract(
-				ExobitsABI, 
-				contractAddress
-			);
-			props.callback({ web3, accounts, contract: instance });
-		//}
-	  },[conn]);*/
-	 /* let provider = null;*/
+	  const [connflag, setConnflag] = useState(true);
+	  
+	 let provider = null;
 	  const Disconnect =async () => {
 		//await provider.disconnect()
-		//deactivate();
+		window.localStorage.setItem("provider", undefined);
+		
+		setConnflag(false);
+		location.reload();
 	  }; 
 	const DoConnect = async () => {
 
@@ -69,7 +47,7 @@ export default function Login(props) {
 			//let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
 			
-				let provider = new WalletConnectProvider({
+				 provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
 					  3: "https://ropsten.infura.io/v3/",
@@ -116,27 +94,36 @@ export default function Login(props) {
 			);
 			props.callback({ web3, accounts, contract: instance });
 			}
-
+			window.localStorage.setItem("provider", "conn");
 		} catch (error) {
 			// Catch any errors for any of the above operations.
+			setConnflag(false);
+			window.localStorage.setItem("provider", undefined);
 			console.error("Could not connect to wallet.", error);
 		}
 	};
 	
 	// If not connected, display the connect button.
-	if(!props.connected) {
-		if(window.ethereum){
+	const conn = window.localStorage.getItem("provider");
+	if(!props.connected || conn!=="conn") {
+		//const conn = window.localStorage.getItem("provider");
+		console.log("conn:",conn);
+		if(conn === "conn"){
 			DoConnect();
+		} else {
+			return <button onClick={DoConnect} color="primary-alta"
+			className="connectBtn"
+			size="small">Connect Wallet</button>;
+		}
+		if(window.ethereum){
+			//DoConnect();
 			//return <button className="login" onClick={DoConnect}>Connect Wallet</button>;
 		} else {
 			/*return <a href={metamaskAppDeepLink}>
 				<button color="primary-alta"
 			className="connectBtn"
 			size="small">Connect Wallet</button></a>;*/
-			return <button onClick={DoConnect} color="primary-alta"
-			className="connectBtn"
-			size="small">Connect Wallet</button>;
-			//DoConnect();
+			
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
