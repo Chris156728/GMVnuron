@@ -119,14 +119,14 @@ export default function Login(props) {
 		location.reload();
 		
 	}  
-	const targetNetworkId = '0x89';
+	const targetNetworkId = 137;
 	const checkNetwork = async () => {
 		
 		  // return true if network id is the same
 		  if(web3){
-		  currentChainId = await web3.eth.getChainId();
+		  currentChainId = await web3.eth.net.getId()//getChainId();
 		  if (currentChainId !== targetNetworkId) {
-			alert("NO networkmatch:"+currentChainId+":"+targetNetworkId);
+			//alert("NO networkmatch:"+currentChainId+":"+targetNetworkId);
 			return true;
 		}
 		console.log("networkmatch");
@@ -141,7 +141,7 @@ export default function Login(props) {
 			try {	
 				await provider.request({
 		  		method: 'wallet_switchEthereumChain',
-		 		 params: [{ chainId: targetNetworkId }],
+		 		 params: [{ chainId: '0x89' }],
 				});
 			} catch (switchError) {
 				alert(switchError.message);
