@@ -153,12 +153,13 @@ export default function Login(props) {
 	}
 	// If not connected, display the connect button.
 	//console.log("NO networkmatch:", currentChainId, targetNetworkId);
-	if(checkNetwork() && isMobileDevice()){
+	const conn = window.localStorage.getItem("provider");
+	if(checkNetwork() && isMobileDevice() && (conn === "conn")){
 		//alert('please switch network');
 		switchNetwork();
 		//alert('please switch net');
 	}
-	const conn = window.localStorage.getItem("provider");
+	//const conn = window.localStorage.getItem("provider");
 	if(!props.connected || conn!=="conn") {
 		//const conn = window.localStorage.getItem("provider");
 		console.log("conn:",conn);
