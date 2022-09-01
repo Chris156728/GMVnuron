@@ -54,7 +54,7 @@ const Header = (param) => {
              walletAddress = web3props.accounts ? web3props.accounts[0] : "";
         }
         let props={tokenaddr:conf.tokenaddr, tokenprice:conf.tokentype, contractaddr:conf.contractaddr, url:nowurl, 
-            refaddr:refaddr, contract:web3props.contract, address:walletAddress};
+            refaddr:refaddr, contract:web3props.contract, address:walletAddress, web3:web3props.web3};
             
        // if((rurl === window.location.href || gpurl === window.location.href)&& contractAvailable)
        if((rurl === curr.pathname|| gpurl === curr.pathname)&& contractAvailable)

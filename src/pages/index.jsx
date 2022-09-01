@@ -129,9 +129,10 @@ let tkid =0;
      setBckd(true);
 		const contractAddress = web3props.contractaddr;//"0x7a7b4757543987dD07936D473Ead236ebcdc4999";
 		const nAddress = "0x0000000000000000000000000000000000000000";
-		const web3 = new Web3(window.web3.currentProvider);
+		//const web3 = new Web3(window.web3.currentProvider);
     const tokenAddress = web3props.tokenaddr[tkid];
-		const usdc = new web3.eth.Contract(minABI, tokenAddress);
+		//const usdc = new web3.eth.Contract(minABI, tokenAddress);
+    const usdc = new web3props.web3.eth.Contract(minABI, tokenAddress);
 		console.log(contractAddress);
 		console.log('minting: ', tokenURI,pid);
 
@@ -166,37 +167,38 @@ let tkid =0;
 			}
 			
 			try{
-			let uresult = await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
-			console.log('uresult', uresult);
+			//let uresult = 
+      await usdc.methods.approve(contractAddress, web3props.tokenprice[pid].price*1e6).send({ from: web3props.address })
+			//console.log('uresult', uresult);
       /*if(uresult.message ==="MetaMask Tx Signature: User denied transaction signature.") {
         setBckd(false);
         return;
       }*/
-    }catch(e){
+    /*}catch(e){
       console.error('There was a problem while minting', e);
       setBckd(false);
       alert(e.message);
       return;
       //if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
 
-    }
-			try{
+    }*/
+			//try{
 			let gasLimit = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid).estimateGas(
 				{ 
 					from: web3props.address, 
 					value: 8000000000000000000
 				}
 			);
-      }catch(e){
+      /*}catch(e){
         console.error('There was a problem while minting', e);
         setBckd(false);
         alert(e.message);
         return;
         //if(e.message !=="MetaMask Tx Signature: User denied transaction signature.") alert(e.message);
   
-      }
+      }*/
 			// Call the mint function.
-			try{
+		//	try{
 			let result = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
 				.send({ 
 					from: web3props.address, 
