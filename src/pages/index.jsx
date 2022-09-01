@@ -199,7 +199,8 @@ let tkid =0;
       }*/
 			// Call the mint function.
 		//	try{
-			let result = await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
+			//let result = 
+      await web3props.contract.methods.CustomMint(tokenURI,refaddr,pid,tkid)
 				.send({ 
 					from: web3props.address, 
 					value: 8000000000000000000,
