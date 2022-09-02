@@ -84,11 +84,11 @@ export default function Login(props) {
 			   if (currentChainId !== targetNetworkId) {
 				alert('please switch network');
 				//try {	
-					await provider.request({
+					await web3.currentProvider.request({ //provider.request({
 					  method: 'wallet_switchEthereumChain',
 					  params: [{ chainId: chID }],
 					});
-					location.href = metamaskAppDeepLink;
+					//location.href = metamaskAppDeepLink;
 				//} catch (switchError) {
 					//alert(switchError.message);
 				//}
