@@ -58,16 +58,24 @@ const Home02 = () => {
             let ptmp = null;
 			try{
 				// Get the metadata URI associated with the token
+                //if(id!=='15'){
 				let tokenURI = await web3props1.contract.methods.tokenURI(id).call();
 				// Fetch the json metadata the token points to
-				console.log('nftid',id);
+
+				console.log('nftid',id,tokenURI);
+                
 				let nftinfo = await web3props1.contract.methods.getNFTinfo(id, web3props1.address).call();
 				console.log(nftinfo);
+                
 				let response = await fetch(uripfx+tokenURI.substring(7));
+               // console.log(response);
 				let metaData = await response.json();
+                //console.log(metaData);
 				// Add the image url if available in the metadata.
 				let imguri = uripfx + metaData.image.substring(7);
-                ptmp = JSON.parse(JSON.stringify(productData[id]));
+                //console.log(productData);
+                let mid=id%16;
+                ptmp = JSON.parse(JSON.stringify(productData[mid]));
                 ptmp.id = id;
                 //ptmp.title = "id:"+id+"-"+metaData.name;
                 ptmp.title = metaData.name;
@@ -88,7 +96,8 @@ const Home02 = () => {
 					tokens.push(ptmp);//metaData.image);
 			}catch(e){
 				// Either the contract call or the fetch can fail. You'll want to handle that in production.
-				console.error('Error occurred while fetching metadata.')
+				console.error('Error occurred while fetching metadata.', e.message);
+                //console.log(e.message);
 				continue;
 			}
 		}
