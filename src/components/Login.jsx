@@ -51,7 +51,9 @@ export default function Login(props) {
 			// Get network provider and web3 instance.
 			//let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
-			
+				if(!connflag && provider){
+					await provider.disconnect();
+				}
 				 provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
@@ -100,6 +102,16 @@ export default function Login(props) {
 
 			} else {
 			// Request account access if needed
+			let chkconn = window.localStorage.getItem("provider");
+			console.log("chk:",chkconn);
+			if(chkconn!=="conn"){
+				console.log("web3 reset");
+				await window.ethereum.request({
+					method: "eth_requestAccounts",
+					params: [{eth_accounts: {}}]
+				})
+				//await web3.clearCachedProvider();
+			}
 			 web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			await window.ethereum.request({ method: 'eth_requestAccounts' })
 			// Use web3 to get the user's accounts.
@@ -202,7 +214,7 @@ export default function Login(props) {
 		}			
 	}
 	// Display the wallet address. Truncate it to save space.
-	return <button onClick={Disconnect} color="primary-alta"
+	return <button  onClick={Disconnect} color="primary-alta"
 		className="connectBtn"
 		size="small">{props.address.slice(0,6)}</button>;
 	}
