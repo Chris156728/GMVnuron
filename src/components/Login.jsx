@@ -88,7 +88,7 @@ export default function Login(props) {
 					  method: 'wallet_switchEthereumChain',
 					  params: [{ chainId: chID }],
 					});
-					location.href = tometamask;
+					location.href = metamaskAppDeepLink;
 				//} catch (switchError) {
 					//alert(switchError.message);
 				//}
