@@ -20,6 +20,7 @@ export default function Login(props) {
 	console.log(dappUrl);
 	console.log(props.connected);
 	console.log(props.address);
+	const tometamask = "https://metamask.app.link/dapp/";
 			// TODO enter your dapp URL. For example: https://uniswap.exchange. (don't enter the "https://")
 	const metamaskAppDeepLink = "https://metamask.app.link/dapp/" + dappUrl;
 	const {
@@ -87,6 +88,7 @@ export default function Login(props) {
 					  method: 'wallet_switchEthereumChain',
 					  params: [{ chainId: chID }],
 					});
+					location.href = tometamask;
 				//} catch (switchError) {
 					//alert(switchError.message);
 				//}
