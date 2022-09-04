@@ -32,15 +32,17 @@ export default function Login(props) {
 		active
 	  } = useWeb3React();
 
-	  const [connflag, setConnflag] = useState(true);
+	  const [connflag, setConnflag] = useState(false);
 	  
 	 let provider = null;
 	 let web3 = null;
 	 let currentChainId = null;
 	  const Disconnect =async () => {
-		//if(provider) {await provider.disconnect()}
+		if(provider) {await provider.disconnect()}
 		window.localStorage.setItem("provider", undefined);
-		
+		provider = null;
+	 	web3 = null;
+	 	currentChainId = null;
 		setConnflag(false);
 		location.reload();
 	  }; 
@@ -52,9 +54,9 @@ export default function Login(props) {
 			// Get network provider and web3 instance.
 			//let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			if(!window.ethereum){
-				if(!connflag && provider){
+				/*if(!connflag && provider){
 					provider = null;
-				}
+				}*/
 				 provider = new WalletConnectProvider({
 					rpc: {
 					  1: "https://mainnet.infura.io/v3/",
@@ -101,7 +103,7 @@ export default function Login(props) {
 			props.callback({ web3, accounts, contract: instance });
 			provider.on("accountsChanged", chainChangedHandler);
 			provider.on("chainChanged", chainChangedHandler);  
-
+			setConnflag(true);
 			} else {
 			// Request account access if needed
 			let chkconn = window.localStorage.getItem("provider");
