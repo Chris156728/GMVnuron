@@ -89,7 +89,7 @@ const Home = () => {
         ptmp.images[0].src=base+idx+".jpg";
         ptmp.price.amount=conf.tokentype[pid].price;
         ptmp.price.currency="USDT";
-        ptmp.pid =pid;
+        ptmp.pid =pid;//offest of new nfttype set;
         ptmp.tkid = 0;
         ptmp.bitCount=conf.tokentype[pid].gp;
         ptmp.latestBid=conf.tokentype[pid].lckprd+" Days";

@@ -301,14 +301,14 @@
         "published_at": "24-JUN-2021 08:05:00",
         "latestBid": "360 Days",
         "price": {
-            "amount": 10000,
+            "amount": 1000,
             "currency": "USDT"
         },
         "likeCount": 205,
         "categories": [
-            "10000 USDT",
+            "1000 USDT",
             "360 Days",
-            "500 GPower"
+            "400 GPower"
         ],
         "images": [
             {
@@ -596,14 +596,14 @@
         "published_at": "24-JAN-2022 09:05:00",
         "latestBid": "360 Days",
         "price": {
-            "amount": 20000,
+            "amount": 300,
             "currency": "USDT"
         },
         "likeCount": 322,
         "categories": [
-            "20000 USDT",
+            "300 USDT",
             "360 Days",
-            "500 GPower"
+            "400 GPower"
         ],
         "images": [
             {
@@ -890,12 +890,12 @@
         "published_at": "25-JAN-2022 09:55:00",
         "latestBid": "360 Days",
         "price": {
-            "amount": 300,
+            "amount": 100,
             "currency": "USDT"
         },
         "likeCount": 420,
         "categories": [
-            "300 USDT",
+            "100 USDT",
             "360 Days",
             "400 GPower"
         ],
@@ -1478,14 +1478,14 @@
         "published_at": "24-JAN-2022 07:55:00",
         "latestBid": "360 Days",
         "price": {
-            "amount": 10000,
+            "amount": 1000,
             "currency": "USDT"
         },
         "likeCount": 205,
         "categories": [
-            "10000 USDT",
+            "1000 USDT",
             "360 Days",
-            "500 GPower"
+            "400 GPower"
         ],
         "images": [
             {
@@ -1772,14 +1772,14 @@
         "published_at": "20-JUN-2021 08:03:00",
         "latestBid": "360 Days",
         "price": {
-            "amount": 20000,
+            "amount": 100,
             "currency": "USDT"
         },
         "likeCount": 322,
         "categories": [
-            "20000 USDT",
+            "100 USDT",
             "360 Days",
-            "500 GPower"
+            "400 GPower"
         ],
         "images": [
             {
